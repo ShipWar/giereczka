@@ -1,10 +1,5 @@
 #include "game.h"
 
-Game::Game()
-{
-
-}
-
 void Game::createTextures()
 {
     m_window.create(sf::VideoMode(800, 800), "SFML works!");
@@ -13,11 +8,20 @@ void Game::createTextures()
 
     m_spaceSprite.setTexture(m_spaceTexture);
 
+    m_shipTexture.loadFromFile("DurrrSpaceShip.png");
+
+    m_shipSprite.setTexture(m_shipTexture);
+
 }
 
 void Game::startGame()
 {
     createTextures();
+    mainLoop();
+}
+
+void Game::mainLoop()
+{
     while (m_window.isOpen())
     {
         sf::Event event;
@@ -29,6 +33,7 @@ void Game::startGame()
 
         m_window.clear();
         m_window.draw(m_spaceSprite);
+        m_window.draw(m_shipSprite);
         m_window.display();
     }
 }
