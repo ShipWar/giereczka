@@ -1,5 +1,5 @@
-
 #include "game.h"
+
 int main()
 {
     Game l_game;

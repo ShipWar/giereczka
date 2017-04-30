@@ -2,7 +2,7 @@
 
 void Game::createTextures()
 {
-    m_window.create(sf::VideoMode(800, 800), "SFML works!");
+    m_window.create(sf::VideoMode(800, 400), "SFML works!");
 
     m_spaceTexture.loadFromFile("space.jpg");
 
