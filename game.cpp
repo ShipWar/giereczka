@@ -14,7 +14,7 @@ void Game::createTextures()
     m_spaceSprite.setTexture(m_spaceTexture);
 
     m_shipTexture.loadFromFile("DurrrSpaceShip.png");
-shipSize = m_shipTexture.getSize();                                 //Pobranie wymiaru statku
+    shipSize = m_shipTexture.getSize();                                 //Pobranie wymiaru statku
     m_shipSprite.setTexture(m_shipTexture);
 
 }
