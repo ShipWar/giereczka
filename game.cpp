@@ -1,5 +1,5 @@
 #include "game.h"
-#include "gamedisplay.h"
+
 
 void Game::createTextures()
 {
@@ -23,9 +23,11 @@ void Game::startGame()
 
 void Game::mainLoop()
 {
-GameDisplay Position;
-Position.InitialPosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y);
-m_shipSprite.setPosition(Position.shipPosition.x,Position.shipPosition.y);
+GameDisplay l_gameDisplay;
+GameLogic l_gameLogic;
+
+l_gameLogic.InitialPosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y, windowWidth ,windowHeight);
+m_shipSprite.setPosition(l_gameLogic.shipPosition.x,l_gameLogic.shipPosition.y);
 
     while (m_window.isOpen())
     {
@@ -35,16 +37,13 @@ m_shipSprite.setPosition(Position.shipPosition.x,Position.shipPosition.y);
             if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
                 m_window.close();
 
-            Position.getPosition(m_shipSprite.getPosition().x, m_shipSprite.getPosition().y);
-            Position.changePosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y);
-            m_shipSprite.setPosition(Position.shipPosition.x,Position.shipPosition.y);
+            l_gameLogic.getPosition(m_shipSprite.getPosition().x, m_shipSprite.getPosition().y);
+            l_gameLogic.changePosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y,  windowWidth ,windowHeight);
+            m_shipSprite.setPosition(l_gameLogic.shipPosition.x,l_gameLogic.shipPosition.y);
 
         }
 
-        m_window.clear();
-        m_window.draw(m_spaceSprite);
-        m_window.draw(m_shipSprite);
-        m_window.display();
+        l_gameDisplay.displayGame(m_window, m_spaceSprite, m_shipSprite);
 
 
     }

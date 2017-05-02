@@ -1,14 +1,13 @@
 #ifndef GAMEDISPLAY_H
 #define GAMEDISPLAY_H
 #include "game.h"
+#include <SFML/Graphics.hpp>
 
 class GameDisplay
 {
 public:
-    void InitialPosition(float widtShip, float heightShip);
-    void changePosition(float widtShip, float heightShip);
-    void getPosition(float x, float y);
-    sf::Vector2u shipPosition;
+    GameDisplay();
+    void displayGame(sf::RenderWindow& p_window, sf::Sprite& p_background, sf::Sprite p_ship);
 };
 
 #endif // GAMEDISPLAY_H
