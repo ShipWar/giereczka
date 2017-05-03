@@ -10,8 +10,8 @@ public:
     void createTextures();
     void startGame();
     void mainLoop();
-    static const int windowWidth = 800;
-    static const int windowHeight = 700;
+    const int windowWidth = 800;
+    const int windowHeight = 700;
 
 private:
     sf::RenderWindow m_window;

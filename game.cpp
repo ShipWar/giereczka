@@ -1,6 +1,5 @@
 #include "game.h"
 
-
 void Game::createTextures()
 {
     m_window.create(sf::VideoMode(windowWidth,windowHeight), "SFML works!");
@@ -26,8 +25,8 @@ void Game::mainLoop()
 GameDisplay l_gameDisplay;
 GameLogic l_gameLogic;
 
-l_gameLogic.InitialPosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y, windowWidth ,windowHeight);
-m_shipSprite.setPosition(l_gameLogic.shipPosition.x,l_gameLogic.shipPosition.y);
+l_gameLogic.InitialPosition(m_window, m_shipTexture);
+m_shipSprite.setPosition(l_gameLogic.shipPosition);
 
     while (m_window.isOpen())
     {
@@ -37,14 +36,10 @@ m_shipSprite.setPosition(l_gameLogic.shipPosition.x,l_gameLogic.shipPosition.y);
             if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
                 m_window.close();
 
-            l_gameLogic.getPosition(m_shipSprite.getPosition().x, m_shipSprite.getPosition().y);
-            l_gameLogic.changePosition(m_shipTexture.getSize().x, m_shipTexture.getSize().y,  windowWidth ,windowHeight);
-            m_shipSprite.setPosition(l_gameLogic.shipPosition.x,l_gameLogic.shipPosition.y);
-
+            l_gameLogic.shipControl(event, m_window, m_shipTexture, m_shipSprite);
+            m_shipSprite.setPosition(l_gameLogic.shipPosition);
         }
 
         l_gameDisplay.displayGame(m_window, m_spaceSprite, m_shipSprite);
-
-
     }
 }
