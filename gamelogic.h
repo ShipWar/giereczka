@@ -5,10 +5,14 @@
 class GameLogic
 {
 public:
-    void InitialPosition(float widtShip, float heightShip, const int windowWidth, const int windowHeight);
-    void changePosition(float widtShip, float heightShip, const int windowWidth, const int p_windowHeight);
-    void getPosition(float x, float y);
-    sf::Vector2u shipPosition;
+    GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_background, sf::Sprite& p_ship);
+    void shipControl();
+private:
+    sf::RenderWindow& m_window;
+    sf::Sprite& m_background;
+    sf::Sprite& m_ship;
+
+
 
 };
 

@@ -1,34 +1,33 @@
 #include "gamelogic.h"
 
+GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_background, sf::Sprite &p_ship):m_window(p_window),
+                                                                                               m_background(p_background),
+                                                                                               m_ship(p_ship)
 
-void GameLogic::InitialPosition(float widtShip, float heightShip, const int windowWidth, const int windowHeight)
 {
-    shipPosition.x=(windowWidth-widtShip)/2;
-    shipPosition.y=windowHeight-heightShip;
+
 }
 
-void GameLogic::changePosition(float widtShip, float heightShip, const int p_windowWidth, const int p_windowHeight)
+void GameLogic::shipControl()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && shipPosition.x<=(p_windowWidth-widtShip-20))
-    {
-        shipPosition.x=shipPosition.x+20;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && shipPosition.x>0)
-    {
-        shipPosition.x=shipPosition.x-20;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && shipPosition.y>0)
-    {
-        shipPosition.y=shipPosition.y-20;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && shipPosition.y<=(p_windowHeight-heightShip-20))
-    {
-        shipPosition.y=shipPosition.y+20;
-    }
-}
+    int m_step = 25;
 
-void GameLogic::getPosition(float x, float y)
-{
-    shipPosition.x = x;
-    shipPosition.y = y;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+            m_ship.getPosition().x<=(m_window.getSize().x-m_ship.getLocalBounds().width-m_step))
+    {
+        m_ship.move(m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_ship.getPosition().x>0)
+    {
+        m_ship.move(-m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_ship.getPosition().y>0)
+    {
+        m_ship.move(0,-m_step);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
+            m_ship.getPosition().y<=(m_window.getSize().y-m_ship.getLocalBounds().height-m_step))
+    {
+        m_ship.move(0,m_step);
+    }
 }
