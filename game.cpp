@@ -2,7 +2,7 @@
 
 void Game::createTextures()
 {
-    m_window.create(sf::VideoMode(windowWidth,windowHeight), "SHIPS WORKS");
+    m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WORKS");
 
     m_spaceTexture.loadFromFile("space.jpg");
 
