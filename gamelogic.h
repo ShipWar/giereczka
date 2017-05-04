@@ -12,8 +12,6 @@ private:
     sf::Sprite& m_background;
     sf::Sprite& m_ship;
 
-
-
 };
 
 #endif // GAMELOGIC_H

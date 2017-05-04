@@ -3,7 +3,6 @@
 GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_background, sf::Sprite &p_ship):m_window(p_window),
                                                                                                m_background(p_background),
                                                                                                m_ship(p_ship)
-
 {
 
 }
@@ -31,3 +30,4 @@ void GameLogic::shipControl()
         m_ship.move(0,m_step);
     }
 }
+
