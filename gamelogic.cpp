@@ -1,17 +1,15 @@
 #include "gamelogic.h"
 
-GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_ship, sf::Sprite &p_shipTwo):m_window(p_window)
-
-
+GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_firstShip, sf::Sprite &p_secoundShip):m_window(p_window)
 {
-    m_playerOne = new Player(p_ship);
-    m_playerTwo = new Player(p_shipTwo);
+    m_firstPlayer = new Player(p_firstShip);
+    m_secoundPlayer = new Player(p_secoundShip);
 }
 
 GameLogic::~GameLogic()
 {
-    delete m_playerOne;
-    delete m_playerTwo;
+    delete m_firstPlayer;
+    delete m_secoundPlayer;
 }
 
 void GameLogic::shipsControl()
@@ -21,43 +19,43 @@ void GameLogic::shipsControl()
     //FirstPlayer
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
-            m_playerOne->getSprite().getPosition().x<=(m_window.getSize().x-m_playerOne->getSprite().getLocalBounds().width-m_step))
+            m_firstPlayer->getSprite().getPosition().x<=(m_window.getSize().x-m_firstPlayer->getSprite().getLocalBounds().width-m_step))
     {
-        m_playerOne->move(m_step,0);
+        m_firstPlayer->move(m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_playerOne->getSprite().getPosition().x>0)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_firstPlayer->getSprite().getPosition().x>0)
     {
-        m_playerOne->move(-m_step,0);
+        m_firstPlayer->move(-m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_playerOne->getSprite().getPosition().y>0)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_firstPlayer->getSprite().getPosition().y>0)
     {
-        m_playerOne->move(0,-m_step);
+        m_firstPlayer->move(0,-m_step);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-            m_playerOne->getSprite().getPosition().y<=(m_window.getSize().y-m_playerOne->getSprite().getLocalBounds().height-m_step))
+            m_firstPlayer->getSprite().getPosition().y<=(m_window.getSize().y-m_firstPlayer->getSprite().getLocalBounds().height-m_step))
     {
-        m_playerOne->move(0,m_step);
+        m_firstPlayer->move(0,m_step);
     }
 
     //SecoundPlayer
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
-            m_playerTwo->getSprite().getPosition().x<=(m_window.getSize().x-m_playerTwo->getSprite().getLocalBounds().width-m_step))
+            m_secoundPlayer->getSprite().getPosition().x<=(m_window.getSize().x-m_secoundPlayer->getSprite().getLocalBounds().width-m_step))
     {
-        m_playerTwo->move(m_step,0);
+        m_secoundPlayer->move(m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_playerTwo->getSprite().getPosition().x>0)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_secoundPlayer->getSprite().getPosition().x>0)
     {
-        m_playerTwo->move(-m_step,0);
+        m_secoundPlayer->move(-m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_playerTwo->getSprite().getPosition().y>0)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_secoundPlayer->getSprite().getPosition().y>0)
     {
-        m_playerTwo->move(0,-m_step);
+        m_secoundPlayer->move(0,-m_step);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-            m_playerTwo->getSprite().getPosition().y<=(m_window.getSize().y-m_playerTwo->getSprite().getLocalBounds().height-m_step))
+            m_secoundPlayer->getSprite().getPosition().y<=(m_window.getSize().y-m_secoundPlayer->getSprite().getLocalBounds().height-m_step))
     {
-        m_playerTwo->move(0,m_step);
+        m_secoundPlayer->move(0,m_step);
     }
 }
 
