@@ -3,12 +3,13 @@
 
 Player::Player(sf::Sprite &p_sprite):m_sprite(p_sprite)
 {
-    std::cout<< "Player created"<<std::endl;
+    std::cout<< "Player created\n";
 }
 
 Player::~Player()
 {
-    std::cout<< "Player died"<<std::endl;
+    std::cout<< "Player died\n";
+
 }
 
 sf::Sprite& Player::getSprite()

@@ -12,7 +12,7 @@ GameDisplay::GameDisplay(sf::RenderWindow &p_window, sf::Sprite &p_background, s
 
 GameDisplay::~GameDisplay()
 {
-    std::cout<<"Finish of displaying";
+    std::cout<<"Finish of displaying\n";
 
 }
 
