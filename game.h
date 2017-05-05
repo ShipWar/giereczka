@@ -3,11 +3,12 @@
 #include<SFML/Graphics.hpp>
 #include "gamedisplay.h"
 #include "gamelogic.h"
+#include <vector>
 
 class Game
 {
 public:
-    void createTextures();
+    void createTexturesAndSprites();
     void startGame();
     void mainLoop();
     void closeWindow();

@@ -1,6 +1,6 @@
 #include "game.h"
 
-void Game::createTextures()
+void Game::createTexturesAndSprites()
 {
     m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WARSS");
 
@@ -21,7 +21,7 @@ void Game::createTextures()
 
 void Game::startGame()
 {
-    createTextures();
+    createTexturesAndSprites();
     mainLoop();
 }
 
