@@ -1,16 +1,19 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 #include <SFML/Graphics.hpp>
+#include "player.h"
 
 class GameLogic
 {
 public:
-    GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_background, sf::Sprite& p_ship);
-    void shipControl();
+    GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_ship, sf::Sprite &p_shipTwo);
+    ~GameLogic();
+    void shipsControl();
 private:
     sf::RenderWindow& m_window;
-    sf::Sprite& m_background;
-    sf::Sprite& m_ship;
+    Player *m_playerOne;
+    Player *m_playerTwo;
+
 
 };
 

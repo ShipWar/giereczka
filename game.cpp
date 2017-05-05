@@ -2,7 +2,7 @@
 
 void Game::createTextures()
 {
-    m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WORKS");
+    m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WARSS");
 
     m_spaceTexture.loadFromFile("space.jpg");
 
@@ -11,6 +11,11 @@ void Game::createTextures()
     m_shipTexture.loadFromFile("DurrrSpaceShip.png");
 
     m_shipSprite.setTexture(m_shipTexture);
+
+    m_shipTextureTwo.loadFromFile("spikedShip.png");
+
+    m_shipSpriteTwo.setTexture(m_shipTextureTwo);
+
 
 }
 
@@ -22,17 +27,17 @@ void Game::startGame()
 
 void Game::mainLoop()
 {
-    GameDisplay l_gameDisplay(m_window, m_spaceSprite, m_shipSprite);
+    GameDisplay l_gameDisplay(m_window, m_spaceSprite, m_shipSprite, m_shipSpriteTwo);
     l_gameDisplay.setInitialPositionForObjects();
 
-    GameLogic l_gameLogic(m_window, m_spaceSprite, m_shipSprite);
+    GameLogic l_gameLogic(m_window, m_shipSprite, m_shipSpriteTwo);
 
     while (m_window.isOpen())
     {
         while (m_window.pollEvent(m_event))
         {
             closeWindow();
-            l_gameLogic.shipControl();
+            l_gameLogic.shipsControl();
 
         }
 
