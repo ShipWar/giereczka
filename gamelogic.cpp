@@ -59,3 +59,8 @@ void GameLogic::shipsControl()
     }
 }
 
+void GameLogic::gameLogicEvent()
+{
+    shipsControl();
+}
+

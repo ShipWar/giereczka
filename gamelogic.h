@@ -9,6 +9,7 @@ public:
     GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_firstShip, sf::Sprite &p_secoundShip);
     ~GameLogic();
     void shipsControl();
+    void gameLogicEvent();
 private:
     sf::RenderWindow& m_window;
     Player *m_firstPlayer;

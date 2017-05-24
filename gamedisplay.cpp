@@ -7,7 +7,7 @@ GameDisplay::GameDisplay(sf::RenderWindow &p_window, sf::Sprite &p_background, s
                                                                                                    m_firstShip(p_firstShip),
                                                                                                    m_secoundShip(p_secoundShip)
 {
-
+    setInitialPositionForObjects();
 }
 
 GameDisplay::~GameDisplay()

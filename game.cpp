@@ -28,16 +28,15 @@ void Game::startGame()
 void Game::mainLoop()
 {
     GameDisplay l_gameDisplay(m_window, m_spaceSprite, m_shipSprite, m_shipSpriteTwo);
-    l_gameDisplay.setInitialPositionForObjects();
-
     GameLogic l_gameLogic(m_window, m_shipSprite, m_shipSpriteTwo);
+
 
     while (m_window.isOpen())
     {
         while (m_window.pollEvent(m_event))
         {
             closeWindow();
-            l_gameLogic.shipsControl();
+            l_gameLogic.gameLogicEvent();
 
         }
 
