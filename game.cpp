@@ -15,6 +15,13 @@ GAME::GAME()
 
 }
 
+GAME::~GAME()
+{
+    delete m_firstPlayer;
+    delete m_secondPlayer;
+    delete m_grid;
+}
+
 void GAME::mainLoop()
 {
     while (m_window.isOpen())

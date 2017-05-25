@@ -9,6 +9,7 @@ class GAME
 {    
 public:
     GAME();
+    ~GAME();
     void mainLoop();
     void display();
     void shipsControl();
