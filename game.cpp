@@ -1,5 +1,4 @@
 #include "game.h"
-
 #include"grid.h"
 #include"player.h"
 
@@ -31,6 +30,8 @@ void GAME::mainLoop()
             closeWindow(l_event);
             shipsControl();
         }
+        m_firstPlayer->shoot(sf::Vector2f(0,-20));
+        m_secondPlayer->shoot(sf::Vector2f(0, 20));
        display();
     }
 }
@@ -72,6 +73,15 @@ void GAME::shipsControl()
         m_firstPlayer->getSprite().move(0,m_step);
     }
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        if(not m_firstPlayer->getBullet()->isVisible)
+        {
+            m_firstPlayer->getBullet()->getSprite().setPosition(m_firstPlayer->getSprite().getPosition());
+            m_firstPlayer->getBullet()->isVisible = true;
+        }
+    }
+
     //SecoundPlayer
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
@@ -92,6 +102,17 @@ void GAME::shipsControl()
     {
         m_secondPlayer->getSprite().move(0,m_step);
     }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+    {
+        if(not m_secondPlayer->getBullet()->isVisible)
+        {
+            m_secondPlayer->getBullet()->getSprite().setPosition(m_secondPlayer->getSprite().getPosition());
+            m_secondPlayer->getBullet()->isVisible = true;
+        }
+    }
+
+
 }
 
 void GAME::closeWindow(sf::Event& p_event)
