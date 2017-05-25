@@ -11,7 +11,7 @@ GAME::GAME()
     m_secondPlayer = new Player("spikedShip.png");
     m_grid = new Grid("space.jpg");
 
-    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer};
+    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
 
 }
 
