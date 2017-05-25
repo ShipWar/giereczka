@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include<SFML/Graphics.hpp>
-#include "idrawinterface.h"
+#include "idraw.h"
 class Grid;
 class Player;
 

@@ -12,7 +12,6 @@ GAME::GAME()
     m_grid = new Grid("space.jpg");
 
     m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
-
 }
 
 GAME::~GAME()
@@ -41,7 +40,8 @@ void GAME::display()
 
     for(IDraw* element : m_vectorOfDrawableElemnts)
     {
-        m_window.draw(element->getSprite());
+        if(element->isVisible)
+            m_window.draw(element->getSprite());
     }
 
     m_window.display();

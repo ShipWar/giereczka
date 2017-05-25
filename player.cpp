@@ -8,16 +8,9 @@ Player::~Player()
 
 Player::Player(std::string p_adres)
 {
-    m_Texture.loadFromFile(p_adres);
-    m_Sprite.setTexture(m_Texture);
-
+    this->isVisible = true;
+    setSprite(p_adres);
     m_bullet = new Bullet("bullet.png");
-
-}
-
-sf::Sprite& Player::getSprite()
-{
-    return m_Sprite;
 }
 
 Bullet* Player::getBullet()
