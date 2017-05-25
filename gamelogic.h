@@ -6,10 +6,11 @@
 class GameLogic
 {
 public:
-    GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_firstShip, sf::Sprite &p_secoundShip);
+    GameLogic(sf::RenderWindow& p_window, sf::Sprite& p_firstShip, sf::Sprite &p_secoundShip, sf::Sprite& p_bulletSprite);
     ~GameLogic();
     void shipsControl();
     void gameLogicEvent();
+    void triggerBullets();
 private:
     sf::RenderWindow& m_window;
     Player *m_firstPlayer;

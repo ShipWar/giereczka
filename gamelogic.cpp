@@ -1,9 +1,9 @@
 #include "gamelogic.h"
 
-GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_firstShip, sf::Sprite &p_secoundShip):m_window(p_window)
+GameLogic::GameLogic(sf::RenderWindow &p_window, sf::Sprite &p_firstShip, sf::Sprite &p_secoundShip, sf::Sprite &p_bulletSprite):m_window(p_window)
 {
-    m_firstPlayer = new Player(p_firstShip);
-    m_secoundPlayer = new Player(p_secoundShip);
+    m_firstPlayer = new Player(p_firstShip, p_bulletSprite);
+    m_secoundPlayer = new Player(p_secoundShip, p_bulletSprite);
 }
 
 GameLogic::~GameLogic()
@@ -62,5 +62,18 @@ void GameLogic::shipsControl()
 void GameLogic::gameLogicEvent()
 {
     shipsControl();
+    triggerBullets();
+}
+
+void GameLogic::triggerBullets()
+{
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        m_firstPlayer->setBullets(1);
+    }
+    if(m_firstPlayer->getBullets()>0)
+    {
+
+    }
 }
 

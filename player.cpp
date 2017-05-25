@@ -1,7 +1,7 @@
 #include "player.h"
 #include <iostream>
 
-Player::Player(sf::Sprite &p_sprite):m_sprite(p_sprite)
+Player::Player(sf::Sprite &p_sprite, sf::Sprite &p_bulletSprite):m_sprite(p_sprite),m_bulletSprite(p_bulletSprite)
 {
     std::cout<< "Player created\n";
 }

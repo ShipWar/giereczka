@@ -6,7 +6,7 @@
 class Player
 {
 public:
-    Player(sf::Sprite& p_sprite);
+    Player(sf::Sprite& p_sprite, sf::Sprite& p_bulletSprite);
     ~Player();
     sf::Sprite &getSprite();
 
@@ -20,6 +20,7 @@ public:
 
 private:
     sf::Sprite& m_sprite;
+    sf::Sprite& m_bulletSprite;
     unsigned int m_health;
     unsigned int m_power;
     unsigned int m_bullets;

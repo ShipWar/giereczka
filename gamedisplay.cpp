@@ -1,11 +1,12 @@
 #include "gamedisplay.h"
 #include <iostream>
 
-GameDisplay::GameDisplay(sf::RenderWindow &p_window, sf::Sprite &p_background, sf::Sprite &p_firstShip, sf::Sprite& p_secoundShip):
+GameDisplay::GameDisplay(sf::RenderWindow &p_window, sf::Sprite &p_background, sf::Sprite &p_firstShip, sf::Sprite& p_secoundShip, sf::Sprite p_bulllet):
                                                                                                    m_window(p_window),
                                                                                                    m_background(p_background),
                                                                                                    m_firstShip(p_firstShip),
-                                                                                                   m_secoundShip(p_secoundShip)
+                                                                                                   m_secoundShip(p_secoundShip),
+                                                                                                   m_bullet(p_bulllet)
 {
     setInitialPositionForObjects();
 }
@@ -22,6 +23,7 @@ void GameDisplay::displayGame()
     m_window.draw(m_background);
     m_window.draw(m_firstShip);
     m_window.draw(m_secoundShip);
+    m_window.draw(m_bullet);
     m_window.display();
 }
 

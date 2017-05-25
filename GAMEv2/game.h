@@ -1,17 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 #include<SFML/Graphics.hpp>
-#include "gamedisplay.h"
-#include "gamelogic.h"
-#include <vector>
 
-class Game
-{
+class GAME
+{    
 public:
-    void createTexturesAndSprites();
-    void startGame();
+    GAME();
     void mainLoop();
-    void closeWindow();
+
 private:
     static const int windowWidth = 800;
     static const int windowHeight = 700;
@@ -27,8 +23,6 @@ private:
     sf::Texture m_bulletTexture;
     sf::Sprite m_bullet;
 
-
-    sf::Event m_event;
 
 };
 
