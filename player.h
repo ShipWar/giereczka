@@ -1,29 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <SFML/Graphics.hpp>
+#include<SFML/Graphics.hpp>
+#include"idrawinterface.h"
 
-
-class Player
+class Player : public IDraw
 {
 public:
-    Player(sf::Sprite& p_sprite, sf::Sprite& p_bulletSprite);
     ~Player();
-    sf::Sprite &getSprite();
-
-    void move(int p_width, int p_height);
-    unsigned int getHealth();
-    void setHealth(unsigned int p_health);
-    unsigned int getPower();
-    void setPower(unsigned int p_power);
-    unsigned int getBullets();
-    void setBullets(unsigned int p_bullets);
-
+    Player(std::string p_adres);
+    sf::Sprite& getSprite() override;
+    sf::Sprite& getBullet();
 private:
-    sf::Sprite& m_sprite;
-    sf::Sprite& m_bulletSprite;
-    unsigned int m_health;
-    unsigned int m_power;
-    unsigned int m_bullets;
+    sf::Texture m_bulletTexture;
+    sf::Sprite m_bullet;
 };
 
 #endif // PLAYER_H

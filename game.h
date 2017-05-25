@@ -1,34 +1,31 @@
 #ifndef GAME_H
 #define GAME_H
 #include<SFML/Graphics.hpp>
-#include "gamedisplay.h"
-#include "gamelogic.h"
-#include <vector>
+#include "idrawinterface.h"
+class Grid;
+class Player;
 
-class Game
-{
+class GAME
+{    
 public:
-    void createTexturesAndSprites();
-    void startGame();
+    GAME();
     void mainLoop();
-    void closeWindow();
+    void display();
+    void shipsControl();
+    void closeWindow(sf::Event &p_event);
+
 private:
     static const int windowWidth = 800;
     static const int windowHeight = 700;
 
     sf::RenderWindow m_window;
 
-    sf::Texture m_spaceTexture;
-    sf::Sprite m_spaceSprite;
-    sf::Texture m_shipTexture;
-    sf::Sprite m_shipSprite;
-    sf::Texture m_shipTextureTwo;
-    sf::Sprite m_shipSpriteTwo;
-    sf::Texture m_bulletTexture;
-    sf::Sprite m_bullet;
+    Grid *m_grid;
+    Player *m_firstPlayer;
+    Player *m_secondPlayer;
 
+    std::vector<IDraw*> m_vectorOfDrawableElemnts;
 
-    sf::Event m_event;
 
 };
 

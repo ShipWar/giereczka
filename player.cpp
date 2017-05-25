@@ -1,54 +1,27 @@
 #include "player.h"
-#include <iostream>
 
-Player::Player(sf::Sprite &p_sprite, sf::Sprite &p_bulletSprite):m_sprite(p_sprite),m_bulletSprite(p_bulletSprite)
-{
-    std::cout<< "Player created\n";
-}
 
 Player::~Player()
 {
-    std::cout<< "Player died\n";
+
+}
+
+Player::Player(std::string p_adres)
+{
+    m_Texture.loadFromFile(p_adres);
+    m_Sprite.setTexture(m_Texture);
+
+    m_bulletTexture.loadFromFile("bullet.png");
+    m_bullet.setTexture(m_bulletTexture);
 
 }
 
 sf::Sprite& Player::getSprite()
 {
-    return m_sprite;
+    return m_Sprite;
 }
 
-void Player::move(int p_width, int p_height)
+sf::Sprite& Player::getBullet()
 {
-    m_sprite.move(p_width, p_height);
-
-}
-
-unsigned int Player::getHealth()
-{
-    return m_health;
-}
-
-void Player::setHealth(unsigned int p_health)
-{
-    m_health = p_health;
-}
-
-unsigned int Player::getPower()
-{
-    return m_power;
-}
-
-void Player::setPower(unsigned int p_power)
-{
-    m_power = p_power;
-}
-
-unsigned int Player::getBullets()
-{
-    return m_bullets;
-}
-
-void Player::setBullets(unsigned int p_bullets)
-{
-    m_bullets = p_bullets;
+    return m_bullet;
 }

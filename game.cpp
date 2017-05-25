@@ -1,51 +1,94 @@
 #include "game.h"
 
-void Game::createTexturesAndSprites()
+#include"grid.h"
+#include"player.h"
+
+GAME::GAME()
 {
     m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WARSS");
 
-    m_spaceTexture.loadFromFile("space.jpg");
-    m_spaceSprite.setTexture(m_spaceTexture);
+    m_firstPlayer = new Player("DurrrSpaceShip.png");
+    m_secondPlayer = new Player("spikedShip.png");
+    m_grid = new Grid("space.jpg");
 
-    m_shipTexture.loadFromFile("DurrrSpaceShip.png");
-    m_shipSprite.setTexture(m_shipTexture);
-
-    m_shipTextureTwo.loadFromFile("spikedShip.png");
-    m_shipSpriteTwo.setTexture(m_shipTextureTwo);
-
-    m_bulletTexture.loadFromFile("bullet.png");
-    m_bullet.setTexture(m_bulletTexture);
-
+    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer};
 
 }
 
-void Game::startGame()
+void GAME::mainLoop()
 {
-    createTexturesAndSprites();
-    mainLoop();
-}
-
-void Game::mainLoop()
-{
-    GameDisplay l_gameDisplay(m_window, m_spaceSprite, m_shipSprite, m_shipSpriteTwo, m_bullet);
-    GameLogic l_gameLogic(m_window, m_shipSprite, m_shipSpriteTwo, m_bullet);
-
-
     while (m_window.isOpen())
     {
-        while (m_window.pollEvent(m_event))
+        sf::Event l_event;
+        while (m_window.pollEvent(l_event))
         {
-            closeWindow();
-            l_gameLogic.gameLogicEvent();
-
+            closeWindow(l_event);
+            shipsControl();
         }
-
-        l_gameDisplay.displayGame();
+       display();
     }
 }
 
-void Game::closeWindow()
+void GAME::display()
 {
-    if (m_event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
+
+    for(IDraw* element : m_vectorOfDrawableElemnts)
+    {
+        m_window.draw(element->getSprite());
+    }
+
+    m_window.display();
+}
+
+void GAME::shipsControl()
+{
+    int m_step = 25;
+
+    //FirstPlayer
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+            m_firstPlayer->getSprite().getPosition().x<=(m_window.getSize().x-m_firstPlayer->getSprite().getLocalBounds().width-m_step))
+    {
+        m_firstPlayer->getSprite().move(m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_firstPlayer->getSprite().getPosition().x>0)
+    {
+        m_firstPlayer->getSprite().move(-m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_firstPlayer->getSprite().getPosition().y>0)
+    {
+        m_firstPlayer->getSprite().move(0,-m_step);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
+            m_firstPlayer->getSprite().getPosition().y<=(m_window.getSize().y-m_firstPlayer->getSprite().getLocalBounds().height-m_step))
+    {
+        m_firstPlayer->getSprite().move(0,m_step);
+    }
+
+    //SecoundPlayer
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+            m_secondPlayer->getSprite().getPosition().x<=(m_window.getSize().x-m_secondPlayer->getSprite().getLocalBounds().width-m_step))
+    {
+        m_secondPlayer->getSprite().move(m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_secondPlayer->getSprite().getPosition().x>0)
+    {
+        m_secondPlayer->getSprite().move(-m_step,0);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_secondPlayer->getSprite().getPosition().y>0)
+    {
+        m_secondPlayer->getSprite().move(0,-m_step);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
+            m_secondPlayer->getSprite().getPosition().y<=(m_window.getSize().y-m_secondPlayer->getSprite().getLocalBounds().height-m_step))
+    {
+        m_secondPlayer->getSprite().move(0,m_step);
+    }
+}
+
+void GAME::closeWindow(sf::Event& p_event)
+{
+    if (p_event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
         m_window.close();
 }

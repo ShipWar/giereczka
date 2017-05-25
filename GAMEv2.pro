@@ -4,11 +4,16 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    game.cpp
+    game.cpp \
+    player.cpp \
+    grid.cpp
 
 
 INCLUDEPATH += /usr/include/SFML
 LIBS += -L/usr/lib/x86_64-linux-gnu/ -lsfml-graphics -lsfml-window -lsfml-system
 
 HEADERS += \
-    game.h
+    game.h \
+    player.h \
+    grid.h \
+    idrawinterface.h
