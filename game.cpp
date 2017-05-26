@@ -32,6 +32,8 @@ void GAME::mainLoop()
         }
         m_firstPlayer->shoot(sf::Vector2f(0,-10));
         m_secondPlayer->shoot(sf::Vector2f(0, 10));
+        m_firstPlayer->getShoot(m_secondPlayer->getBullet());
+        m_secondPlayer->getShoot(m_firstPlayer->getBullet());
        display();
     }
 }

@@ -13,7 +13,9 @@ public:
     Player(std::string p_adres);
     Bullet *getBullet();
     void shoot(sf::Vector2f p_direction);
+    void getShoot(Bullet *p_bullet);
 private:
+    unsigned int m_health = 100;
     static const int windowWidth = 800;
     static const int windowHeight = 700;
     Bullet* m_bullet;
