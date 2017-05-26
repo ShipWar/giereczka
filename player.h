@@ -14,7 +14,11 @@ public:
     Bullet *getBullet();
     void shoot(sf::Vector2f p_direction);
 private:
+    static const int windowWidth = 800;
+    static const int windowHeight = 700;
     Bullet* m_bullet;
+    std::chrono::milliseconds m_ms = std::chrono::milliseconds(20);
+    std::chrono::time_point<std::chrono::system_clock> m_end = std::chrono::system_clock::now() + m_ms;
 };
 
 #endif // PLAYER_H

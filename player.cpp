@@ -19,18 +19,15 @@ Bullet* Player::getBullet()
 
 void Player::shoot(sf::Vector2f p_direction)
 {
-    static std::chrono::milliseconds ms(40);
-    static std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now() + ms ;
-
     if(m_bullet->isVisible)
     {
-        if(std::chrono::system_clock::now()>end)
+        if(std::chrono::system_clock::now()>m_end)
         {
             m_bullet->getSprite().move(p_direction);
-            end = std::chrono::system_clock::now() + ms;
+            m_end = std::chrono::system_clock::now() + m_ms;
         }
 
-        if(m_bullet->getSprite().getPosition().y < 0 || m_bullet->getSprite().getPosition().y > 800) //change this magic number
+        if(m_bullet->getSprite().getPosition().y < 0 || m_bullet->getSprite().getPosition().y > windowHeight)
             m_bullet->isVisible = false;
     }
 }

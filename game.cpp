@@ -30,8 +30,8 @@ void GAME::mainLoop()
             closeWindow(l_event);
             shipsControl();
         }
-        m_firstPlayer->shoot(sf::Vector2f(0,-20));
-        m_secondPlayer->shoot(sf::Vector2f(0, 20));
+        m_firstPlayer->shoot(sf::Vector2f(0,-10));
+        m_secondPlayer->shoot(sf::Vector2f(0, 10));
        display();
     }
 }
