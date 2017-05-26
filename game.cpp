@@ -6,8 +6,8 @@ GAME::GAME()
 {
     m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WARSS");
 
-    m_firstPlayer = new Player("DurrrSpaceShip.png");
-    m_secondPlayer = new Player("spikedShip.png");
+    m_firstPlayer = new Player("DurrrSpaceShip.png", "Gracz Dolny");
+    m_secondPlayer = new Player("spikedShip.png", "Gracz Gorny");
     m_grid = new Grid("space.jpg");
 
     m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
@@ -28,13 +28,21 @@ void GAME::mainLoop()
         while (m_window.pollEvent(l_event))
         {
             closeWindow(l_event);
-            shipsControl();
+
+            if(m_firstPlayer->isAlive() && m_secondPlayer->isAlive())
+            {
+                shipsControl();
+            }
         }
-        m_firstPlayer->shoot(sf::Vector2f(0,-10));
-        m_secondPlayer->shoot(sf::Vector2f(0, 10));
-        m_firstPlayer->getShoot(m_secondPlayer->getBullet());
-        m_secondPlayer->getShoot(m_firstPlayer->getBullet());
-       display();
+
+        if(m_firstPlayer->isAlive() && m_secondPlayer->isAlive())
+        {
+            m_firstPlayer->shoot(sf::Vector2f(0,-10));
+            m_secondPlayer->shoot(sf::Vector2f(0, 10));
+            m_firstPlayer->getShoot(m_secondPlayer->getBullet());
+            m_secondPlayer->getShoot(m_firstPlayer->getBullet());
+        }
+        display();
     }
 }
 
