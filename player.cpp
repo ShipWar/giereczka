@@ -5,12 +5,15 @@ Player::~Player()
     delete m_bullet;
 }
 
-Player::Player(std::string p_adres, std::string p_name, std::vector<sf::Keyboard::Key> p_keyVector):m_name(p_name),
-                                                                                                    m_keyVector(p_keyVector)
+Player::Player(std::string p_adres, std::string p_name, std::vector<sf::Keyboard::Key> p_keyVector, sf::Vector2f p_startPosition)
+                                                                                                    :m_name(p_name),
+                                                                                                    m_keyVector(p_keyVector),
+                                                                                                    m_startPosition(p_startPosition)
 {
     this->isVisible = true;
     setSprite(p_adres);
     m_bullet = new Bullet("bullet.png");
+    this->getSprite().move(m_startPosition);
 }
 
 Bullet* Player::getBullet()
@@ -44,7 +47,7 @@ void Player::getShoot(Bullet *p_bullet)
             p_bullet->getSprite().getPosition().x < l_vec.x)
     {
         this->m_health--;
-        std::cout<<"Health: \n"<<m_health<<std::endl;
+        std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
     }
 }
 

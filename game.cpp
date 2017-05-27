@@ -9,8 +9,8 @@ GAME::GAME()
    std::vector<sf::Keyboard::Key> l_vecA = {sf::Keyboard::Right, sf::Keyboard::Left, sf::Keyboard::Up, sf::Keyboard::Down, sf::Keyboard::Space};
    std::vector<sf::Keyboard::Key> l_vecB = {sf::Keyboard::D, sf::Keyboard::A, sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::Tab};
 
-    m_firstPlayer = new Player("DurrrSpaceShip.png", "Gracz Dolny", l_vecA);
-    m_secondPlayer = new Player("spikedShip.png", "Gracz Gorny", l_vecB);
+    m_firstPlayer = new Player("DurrrSpaceShip.png", "Gracz Dolny", l_vecA, sf::Vector2f(windowWidth/2,windowHeight-100));
+    m_secondPlayer = new Player("spikedShip.png", "Gracz Gorny", l_vecB, sf::Vector2f(windowWidth/2, 0));
     m_grid = new Grid("space.jpg");
 
     m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
