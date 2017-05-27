@@ -14,6 +14,8 @@ Player::Player(std::string p_adres, std::string p_name, std::vector<sf::Keyboard
     setSprite(p_adres);
     m_bullet = new Bullet("bullet.png");
     this->getSprite().move(m_startPosition);
+    createHealth();
+
 }
 
 Bullet* Player::getBullet()
@@ -98,6 +100,11 @@ void Player::shipControl()
             this->getBullet()->isVisible = true;
         }
     }
+}
+
+void Player::createHealth()
+{
+
 }
 
 

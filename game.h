@@ -17,9 +17,7 @@ public:
 private:
     static const int windowWidth = 800;
     static const int windowHeight = 700;
-
     sf::RenderWindow m_window;
-
     Grid *m_grid;
     Player *m_firstPlayer;
     Player *m_secondPlayer;
