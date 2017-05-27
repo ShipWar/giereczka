@@ -12,7 +12,6 @@ public:
     ~GAME();
     void mainLoop();
     void display();
-    void shipsControl();
     void closeWindow(sf::Event &p_event);
 
 private:
