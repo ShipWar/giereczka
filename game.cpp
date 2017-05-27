@@ -31,16 +31,12 @@ void GAME::mainLoop()
         while (m_window.pollEvent(l_event))
         {
             closeWindow(l_event);
-
-            if(m_firstPlayer->isAlive() && m_secondPlayer->isAlive())
-            {
-                m_firstPlayer->shipControl();
-                m_secondPlayer->shipControl();
-            }
         }
 
         if(m_firstPlayer->isAlive() && m_secondPlayer->isAlive())
         {
+            m_firstPlayer->shipControl();
+            m_secondPlayer->shipControl();
             m_firstPlayer->shoot(sf::Vector2f(0,-10));
             m_secondPlayer->shoot(sf::Vector2f(0, 10));
             m_firstPlayer->getShoot(m_secondPlayer->getBullet());
