@@ -5,9 +5,9 @@ Player::~Player()
     delete m_bullet;
 }
 
-Player::Player(std::string p_adres, std::string p_name, std::vector<sf::Keyboard::Key> p_keyVector, sf::Vector2f p_startPosition)
+Player::Player(std::string p_adres, std::string p_name, std::map<std::string, sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition)
                                                                                                     :m_name(p_name),
-                                                                                                    m_keyVector(p_keyVector),
+                                                                                                    m_keyMap(p_keyMap),
                                                                                                     m_startPosition(p_startPosition)
 {
     this->isVisible = true;
@@ -60,10 +60,15 @@ void Player::getShoot(Bullet *p_bullet)
 
 bool Player::isAlive()
 {
-    if(m_health <= 0)
+    static bool l_gameOver=true;
+    if(not l_gameOver)
+    {
+        return false;
+    }
+    else if(m_health <= 0)
     {
         std::cout<<"GAME OVER "<<m_name<<"\n";
-        return false;
+        l_gameOver=false;
     }
     return true;
 }
@@ -71,31 +76,31 @@ bool Player::isAlive()
 void Player::setBulletPositionBeforeShoot()
 {
     this->getBullet()->getSprite().setPosition(this->getSprite().getPosition().x + getSprite().getLocalBounds().height/2 - m_bullet->getSprite().getLocalBounds().height/2,
-                                               this->getSprite().getPosition().y + getTextureSize().y);
+                                               this->getSprite().getPosition().y + getTextureSize().y/2);
 }
 
 void Player::shipControl()
 {
-    if(sf::Keyboard::isKeyPressed(m_keyVector[0]) &&
+    if(sf::Keyboard::isKeyPressed(m_keyMap["R"]) &&
             this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step))
     {
         this->getSprite().move(m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyVector[1]) && this->getSprite().getPosition().x>0)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["L"]) && this->getSprite().getPosition().x>0)
     {
         this->getSprite().move(-m_step,0);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyVector[2]) && this->getSprite().getPosition().y>0)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) && this->getSprite().getPosition().y>0)
     {
         this->getSprite().move(0,-m_step);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyVector[3]) &&
+    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
             this->getSprite().getPosition().y <= (m_windowHeight-this->getSprite().getLocalBounds().height-m_step))
     {
         this->getSprite().move(0,m_step);
     }
 
-    if(sf::Keyboard::isKeyPressed(m_keyVector[4]))
+    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]))
     {
         if(not this->getBullet()->isVisible)
         {
