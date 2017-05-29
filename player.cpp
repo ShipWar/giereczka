@@ -41,15 +41,19 @@ void Player::shoot(sf::Vector2f p_direction)
 
 void Player::getShoot(Bullet *p_bullet)
 {
-    sf::Vector2f l_vec(this->getSprite().getPosition().x +100, this->getSprite().getPosition().y +100);
+    sf::Vector2f l_vec(this->getSprite().getPosition().x +100, this->getSprite().getPosition().y +50);
 
     if(p_bullet->getSprite().getPosition().y > this->getSprite().getPosition().y && p_bullet->isVisible
         && p_bullet->getSprite().getPosition().y < l_vec.y &&
             p_bullet->getSprite().getPosition().x > this->getSprite().getPosition().x &&
             p_bullet->getSprite().getPosition().x < l_vec.x)
     {
-        this->m_health--;
-        std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
+        if(p_bullet->isVisible)
+        {
+            this->m_health--;
+            std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
+            p_bullet->isVisible = false;
+        }
     }
 }
 
