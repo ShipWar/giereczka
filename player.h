@@ -21,9 +21,7 @@ public:
     void setBulletPositionBeforeShoot();
     void shipControl();
 private:
-    void createHealth();
     unsigned int m_health = 10;
-    std::unordered_map<std::string, sf::Sprite> m_Health;
     static const int m_windowWidth = 800;
     static const int m_windowHeight = 700;
     Bullet* m_bullet;
