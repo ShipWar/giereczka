@@ -75,8 +75,6 @@ void Player::setBulletPositionBeforeShoot()
 
 void Player::shipControl()
 {
-    int m_step = 15;
-
     if(sf::Keyboard::isKeyPressed(m_keyVector[0]) &&
             this->getSprite().getPosition().x<=(m_windowWidth-this->getSprite().getLocalBounds().width-m_step))
     {

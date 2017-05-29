@@ -22,16 +22,17 @@ public:
     void shipControl();
 private:
     void createHealth();
-    unsigned int m_health = 100;
+    unsigned int m_health = 10;
     std::unordered_map<std::string, sf::Sprite> m_Health;
     static const int m_windowWidth = 800;
     static const int m_windowHeight = 700;
     Bullet* m_bullet;
-    std::chrono::milliseconds m_ms = std::chrono::milliseconds(20);
+    std::chrono::milliseconds m_ms = std::chrono::milliseconds(4);
     std::chrono::time_point<std::chrono::system_clock> m_end = std::chrono::system_clock::now() + m_ms;
     std::string m_name;
     std::vector<sf::Keyboard::Key> m_keyVector;
     sf::Vector2f m_startPosition;
+    int m_step = 5;
 };
 
 #endif // PLAYER_H
