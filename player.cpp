@@ -40,12 +40,14 @@ void Player::shoot(sf::Vector2f p_direction)
 
 void Player::getShoot(Bullet *p_bullet)
 {
-    sf::Vector2f l_vec(this->getSprite().getPosition().x +100, this->getSprite().getPosition().y +50);
+    sf::Vector2f l_vec(this->getSprite().getPosition().x + this->getTextureSize().x,
+                       this->getSprite().getPosition().y + this->getTextureSize().y);
 
-    if(p_bullet->getSprite().getPosition().y > this->getSprite().getPosition().y && p_bullet->isVisible
-        && p_bullet->getSprite().getPosition().y < l_vec.y &&
-            p_bullet->getSprite().getPosition().x > this->getSprite().getPosition().x &&
-            p_bullet->getSprite().getPosition().x < l_vec.x)
+    if(p_bullet->getSprite().getPosition().y > this->getSprite().getPosition().y &&
+       p_bullet->getSprite().getPosition().y < l_vec.y &&
+       p_bullet->isVisible  &&
+       p_bullet->getSprite().getPosition().x > this->getSprite().getPosition().x &&
+       p_bullet->getSprite().getPosition().x < l_vec.x)
     {
         if(p_bullet->isVisible)
         {
@@ -68,14 +70,14 @@ bool Player::isAlive()
 
 void Player::setBulletPositionBeforeShoot()
 {
-    this->getBullet()->getSprite().setPosition(this->getSprite().getPosition().x + this->getSprite().getLocalBounds().width/3,
-                                      this->getSprite().getPosition().y);
+    this->getBullet()->getSprite().setPosition(this->getSprite().getPosition().x + getSprite().getLocalBounds().height/2 - m_bullet->getSprite().getLocalBounds().height/2,
+                                               this->getSprite().getPosition().y + getTextureSize().y);
 }
 
 void Player::shipControl()
 {
     if(sf::Keyboard::isKeyPressed(m_keyVector[0]) &&
-            this->getSprite().getPosition().x<=(m_windowWidth-this->getSprite().getLocalBounds().width-m_step))
+            this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step))
     {
         this->getSprite().move(m_step,0);
     }
@@ -88,7 +90,7 @@ void Player::shipControl()
         this->getSprite().move(0,-m_step);
     }
     if(sf::Keyboard::isKeyPressed(m_keyVector[3]) &&
-            this->getSprite().getPosition().y<=(m_windowHeight-this->getSprite().getLocalBounds().height-m_step))
+            this->getSprite().getPosition().y <= (m_windowHeight-this->getSprite().getLocalBounds().height-m_step))
     {
         this->getSprite().move(0,m_step);
     }
@@ -102,6 +104,3 @@ void Player::shipControl()
         }
     }
 }
-
-
-

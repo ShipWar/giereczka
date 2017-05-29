@@ -25,12 +25,12 @@ private:
     static const int m_windowWidth = 800;
     static const int m_windowHeight = 700;
     Bullet* m_bullet;
-    std::chrono::milliseconds m_ms = std::chrono::milliseconds(4);
+    std::chrono::milliseconds m_ms = std::chrono::milliseconds(2);
     std::chrono::time_point<std::chrono::system_clock> m_end = std::chrono::system_clock::now() + m_ms;
     std::string m_name;
     std::vector<sf::Keyboard::Key> m_keyVector;
     sf::Vector2f m_startPosition;
-    int m_step = 5;
+    int m_step = 1;
 };
 
 #endif // PLAYER_H
