@@ -10,7 +10,7 @@ public:
     sf::Sprite& getSprite();
     void setSprite(std::string p_adres);
     bool isVisible = false;
-    sf::Vector2u getTextureSize();
+    sf::Vector2f getTextureSize();
 
 private:
     sf::Texture m_Texture;

@@ -11,7 +11,7 @@ void IDraw::setSprite(std::string p_adres)
     m_Sprite.setTexture(m_Texture);
 }
 
-sf::Vector2u IDraw::getTextureSize()
+sf::Vector2f IDraw::getTextureSize()
 {
-    return m_Texture.getSize();
+    return static_cast<sf::Vector2f>(m_Texture.getSize());
 }

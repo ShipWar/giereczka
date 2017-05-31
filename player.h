@@ -32,7 +32,12 @@ private:
     std::string m_name;
     std::map<std::string, sf::Keyboard::Key> m_keyMap;
     sf::Vector2f m_startPosition;
-    int m_step = 1;
+    int m_step = 5;
+
+    sf::Vector2f m_CenterPoint;
+
+    sf::Vector2f m_Direction = sf::Vector2f(0,-10);
+    sf::Vector2f m_ReverseDirection = sf::Vector2f(0,10);
 };
 
 #endif // PLAYER_H
