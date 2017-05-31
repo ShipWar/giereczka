@@ -25,13 +25,13 @@ Bullet* Player::getBullet()
     return m_bullet;
 }
 
-void Player::shoot(sf::Vector2f p_direction)
+void Player::shoot()
 {
     if(m_bullet->isVisible)
     {
         if(std::chrono::system_clock::now()>m_end)
         {
-            m_bullet->getSprite().move(p_direction);
+            m_bullet->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
             m_end = std::chrono::system_clock::now() + m_ms;
         }
 
@@ -82,7 +82,7 @@ void Player::shipControl()
 {
     if(sf::Keyboard::isKeyPressed(m_keyMap["R"]) &&
             this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step + m_CenterPoint.x))
-    {       
+    {
         this->getSprite().setRotation(this->getSprite().getRotation()+1);
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["L"]) && this->getSprite().getPosition().x > 0 + m_CenterPoint.x)
@@ -91,12 +91,12 @@ void Player::shipControl()
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) && this->getSprite().getPosition().y > 0 + m_CenterPoint.y)
     {
-        this->getSprite().move(cos(this->getSprite().getRotation()*3.14/180)*3, sin(this->getSprite().getRotation()*3.14/180)*-3);
+        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
             this->getSprite().getPosition().y <= (m_windowHeight-this->getSprite().getLocalBounds().height-m_step + m_CenterPoint.y))
     {
-        this->getSprite().move(cos(this->getSprite().getRotation()*3.14/180)*-3, sin(this->getSprite().getRotation()*3.14/180)*3);
+        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-3, cos((this->getSprite().getRotation())*3.14/180)*3);
     }
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]))

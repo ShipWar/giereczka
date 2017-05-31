@@ -45,8 +45,8 @@ void GAME::mainLoop()
         {
             m_firstPlayer->shipControl();
             m_secondPlayer->shipControl();
-            m_firstPlayer->shoot(sf::Vector2f(0,-5));
-            m_secondPlayer->shoot(sf::Vector2f(0, 5));
+            m_firstPlayer->shoot();
+            m_secondPlayer->shoot();
             m_firstPlayer->getShoot(m_secondPlayer->getBullet());
             m_secondPlayer->getShoot(m_firstPlayer->getBullet());
         }

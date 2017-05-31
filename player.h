@@ -15,7 +15,7 @@ public:
     ~Player();
     Player(std::string p_adres, std::string p_name, std::map<std::string, sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition);
     Bullet *getBullet();
-    void shoot(sf::Vector2f p_direction);
+    void shoot();
     void getShoot(Bullet *p_bullet);
     bool isAlive();
     void setBulletPositionBeforeShoot();
