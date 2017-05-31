@@ -8,10 +8,9 @@ Player::~Player()
 }
 
 Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
-               sf::Keyboard::Key> p_keyMap, bool p_reversBulletDirectiory)
+               sf::Keyboard::Key> p_keyMap)
                                                                           :m_name(p_name),
-                                                                           m_keyMap(p_keyMap),
-                                                                           m_reversBulletDirectiory(p_reversBulletDirectiory)
+                                                                           m_keyMap(p_keyMap)
 {
 
 
@@ -26,6 +25,7 @@ Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
     if(m_name == "Gracz Gorny")
     {
         m_startPosition = sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2);
+        this->getSprite().setRotation(180);
     }
 
     m_bullet = new Bullet("bullet.png");
@@ -99,7 +99,7 @@ void Player::setBulletPositionBeforeShoot()
 void Player::shipControl()
 {
     if(sf::Keyboard::isKeyPressed(m_keyMap["R"]) &&
-            this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step + m_CenterPoint.x))
+        this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step + m_CenterPoint.x))
     {
         this->getSprite().setRotation(this->getSprite().getRotation()+1);
     }
@@ -107,14 +107,21 @@ void Player::shipControl()
     {
         this->getSprite().setRotation(this->getSprite().getRotation()-1);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) && this->getSprite().getPosition().y > 0 + m_CenterPoint.y)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) &&
+            this->getSprite().getPosition().x >= m_CenterPoint.x &&
+            this->getSprite().getPosition().x <= m_windowWidth - m_CenterPoint.x &&
+            this->getSprite().getPosition().y >= m_CenterPoint.y &&
+            this->getSprite().getPosition().y <= m_windowHeight - m_CenterPoint.y)
     {
-        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
+        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*m_step, cos((this->getSprite().getRotation())*3.14/180)*-m_step);
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
-            this->getSprite().getPosition().y <= (m_windowHeight-this->getSprite().getLocalBounds().height-m_step + m_CenterPoint.y))
+            this->getSprite().getPosition().x >= m_CenterPoint.x &&
+            this->getSprite().getPosition().x <= m_windowWidth - m_CenterPoint.x &&
+            this->getSprite().getPosition().y >= m_CenterPoint.y &&
+            this->getSprite().getPosition().y <= m_windowHeight - m_CenterPoint.y)
     {
-        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-3, cos((this->getSprite().getRotation())*3.14/180)*3);
+        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-m_step, cos((this->getSprite().getRotation())*3.14/180)*m_step);
     }
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]))
@@ -123,13 +130,7 @@ void Player::shipControl()
         {
             this->setBulletPositionBeforeShoot();
             this->getBullet()->isVisible = true;
-            if(m_reversBulletDirectiory == true)
-            {
-                m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, -cos((this->getSprite().getRotation())*3.14/180)*-3);
-            }
-            else
-            {
-                m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
-        }   }
+            m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
+        }
     }
 }
