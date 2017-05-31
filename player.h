@@ -13,7 +13,7 @@ class Player : public IDraw
 {
 public:
     ~Player();
-    Player(std::string p_adres, std::string p_name, std::map<std::string, sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition, bool p_reversBulletDirectiory = false);
+    Player(std::string p_adres, std::string p_name, std::map<std::string, sf::Keyboard::Key> p_keyMap, bool p_reversBulletDirectiory = false);
     Bullet *getBullet();
     void shoot();
     void getShoot(Bullet *p_bullet);

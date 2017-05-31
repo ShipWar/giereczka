@@ -8,14 +8,26 @@ Player::~Player()
 }
 
 Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
-               sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition, bool p_reversBulletDirectiory)
+               sf::Keyboard::Key> p_keyMap, bool p_reversBulletDirectiory)
                                                                           :m_name(p_name),
                                                                            m_keyMap(p_keyMap),
-                                                                           m_startPosition(p_startPosition),
                                                                            m_reversBulletDirectiory(p_reversBulletDirectiory)
 {
+
+
+
     this->isVisible = true;
     setSprite(p_adres);
+
+    if(m_name == "Gracz Dolny")
+    {
+        m_startPosition = sf::Vector2f(m_windowWidth/2, m_windowHeight-this->getSprite().getLocalBounds().height/2);
+    }
+    if(m_name == "Gracz Gorny")
+    {
+        m_startPosition = sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2);
+    }
+
     m_bullet = new Bullet("bullet.png");
     this->getSprite().move(m_startPosition);
     m_CenterPoint = sf::Vector2f(getTextureSize().x/2, getTextureSize().y/2);
@@ -37,7 +49,11 @@ void Player::shoot()
             m_end = std::chrono::system_clock::now() + m_ms;
         }
 
-        if(m_bullet->getSprite().getPosition().y < 0 || m_bullet->getSprite().getPosition().y > m_windowHeight)
+        if(m_bullet->getSprite().getPosition().x < 0 ||
+           m_bullet->getSprite().getPosition().x > m_windowWidth ||
+           m_bullet->getSprite().getPosition().y < 0 ||
+           m_bullet->getSprite().getPosition().y > m_windowHeight)
+
             m_bullet->isVisible = false;
     }
 }
