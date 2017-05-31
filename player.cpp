@@ -8,9 +8,11 @@ Player::~Player()
 }
 
 Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
-               sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition) :m_name(p_name),
+               sf::Keyboard::Key> p_keyMap, sf::Vector2f p_startPosition, bool p_reversBulletDirectiory)
+                                                                          :m_name(p_name),
                                                                            m_keyMap(p_keyMap),
-                                                                           m_startPosition(p_startPosition)
+                                                                           m_startPosition(p_startPosition),
+                                                                           m_reversBulletDirectiory(p_reversBulletDirectiory)
 {
     this->isVisible = true;
     setSprite(p_adres);
@@ -31,7 +33,7 @@ void Player::shoot()
     {
         if(std::chrono::system_clock::now()>m_end)
         {
-            m_bullet->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
+            m_bullet->getSprite().move(m_bulletDirectory);
             m_end = std::chrono::system_clock::now() + m_ms;
         }
 
@@ -105,6 +107,13 @@ void Player::shipControl()
         {
             this->setBulletPositionBeforeShoot();
             this->getBullet()->isVisible = true;
-        }
+            if(m_reversBulletDirectiory == true)
+            {
+                m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, -cos((this->getSprite().getRotation())*3.14/180)*-3);
+            }
+            else
+            {
+                m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
+        }   }
     }
 }

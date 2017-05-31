@@ -18,7 +18,7 @@ GAME::GAME()
                                                       {"Fire",sf::Keyboard::Tab}};
 
     m_firstPlayer = new Player("DurrrSpaceShip.png", "Gracz Dolny", l_mapA, sf::Vector2f(windowWidth/2 - 40,windowHeight-40));
-    m_secondPlayer = new Player("ship2.png", "Gracz Gorny", l_mapB, sf::Vector2f(windowWidth/2 - 40, 40));
+    m_secondPlayer = new Player("ship2.png", "Gracz Gorny", l_mapB, sf::Vector2f(windowWidth/2 - 40, 40), true);
     m_grid = new Grid("space.jpg");
 
     m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
