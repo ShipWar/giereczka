@@ -98,15 +98,21 @@ void Player::setBulletPositionBeforeShoot()
 
 void Player::shipControl()
 {
-    if(sf::Keyboard::isKeyPressed(m_keyMap["R"]) &&
-        this->getSprite().getPosition().x <= (m_windowWidth-this->getSprite().getLocalBounds().width-m_step + m_CenterPoint.x))
+    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) == true)
     {
-        this->getSprite().setRotation(this->getSprite().getRotation()+1);
+        m_turn = -1;
     }
-    if(sf::Keyboard::isKeyPressed(m_keyMap["L"]) && this->getSprite().getPosition().x > 0 + m_CenterPoint.x)
+    else {m_turn = 1;}
+
+    if(sf::Keyboard::isKeyPressed(m_keyMap["R"]))
     {
-        this->getSprite().setRotation(this->getSprite().getRotation()-1);
+        this->getSprite().setRotation(this->getSprite().getRotation()+m_turn);
     }
+    if(sf::Keyboard::isKeyPressed(m_keyMap["L"]))
+    {
+        this->getSprite().setRotation(this->getSprite().getRotation()-m_turn);
+    }
+
     if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) &&
             this->getSprite().getPosition().x >= m_CenterPoint.x &&
             this->getSprite().getPosition().x <= m_windowWidth - m_CenterPoint.x &&

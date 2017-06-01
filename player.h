@@ -33,6 +33,7 @@ private:
     std::map<std::string, sf::Keyboard::Key> m_keyMap;
     sf::Vector2f m_startPosition;
     int m_step = 1;
+    int m_turn = 1;
 
     sf::Vector2f m_CenterPoint;
 
