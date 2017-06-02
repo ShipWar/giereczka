@@ -8,9 +8,8 @@ Player::~Player()
 }
 
 Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
-               sf::Keyboard::Key> p_keyMap)
-                                                                          :m_name(p_name),
-                                                                           m_keyMap(p_keyMap)
+               sf::Keyboard::Key> p_keyMap) :m_name(p_name),
+                                             m_keyMap(p_keyMap)
 {
 
 
@@ -98,6 +97,17 @@ void Player::setBulletPositionBeforeShoot()
 
 void Player::shipControl()
 {
+
+    if(this->getSprite().getPosition().x < m_CenterPoint.x ||
+            this->getSprite().getPosition().x > m_windowWidth - m_CenterPoint.x ||
+            this->getSprite().getPosition().y < m_CenterPoint.y ||
+            this->getSprite().getPosition().y > m_windowHeight - m_CenterPoint.y)
+    {
+        this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-20*m_step, cos((this->getSprite().getRotation())*3.14/180)*20*m_step);
+        //this->getSprite().setRotation(this->getSprite().getRotation()+180);
+    }
+    std::cout<<std::endl<<m_CenterPoint.x<<" "<<m_windowWidth - m_CenterPoint.x<<" "<<m_CenterPoint.y<<" "<<m_windowHeight - m_CenterPoint.y <<std::endl;
+
     if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) == true)
     {
         m_turn = -1;

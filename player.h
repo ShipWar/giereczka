@@ -36,7 +36,6 @@ private:
     int m_turn = 1;
 
     sf::Vector2f m_CenterPoint;
-
     sf::Vector2f m_bulletDirectory;
 
 };
