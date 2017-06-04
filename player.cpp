@@ -104,15 +104,7 @@ void Player::shipControl()
             this->getSprite().getPosition().y > m_windowHeight - m_CenterPoint.y)
     {
         this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-20*m_step, cos((this->getSprite().getRotation())*3.14/180)*20*m_step);
-        //this->getSprite().setRotation(this->getSprite().getRotation()+180);
     }
-    std::cout<<std::endl<<m_CenterPoint.x<<" "<<m_windowWidth - m_CenterPoint.x<<" "<<m_CenterPoint.y<<" "<<m_windowHeight - m_CenterPoint.y <<std::endl;
-
-    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) == true)
-    {
-        m_turn = -1;
-    }
-    else {m_turn = 1;}
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["R"]))
     {
@@ -129,6 +121,7 @@ void Player::shipControl()
             this->getSprite().getPosition().y >= m_CenterPoint.y &&
             this->getSprite().getPosition().y <= m_windowHeight - m_CenterPoint.y)
     {
+        m_turn = 1;
         this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*m_step, cos((this->getSprite().getRotation())*3.14/180)*-m_step);
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
@@ -137,6 +130,7 @@ void Player::shipControl()
             this->getSprite().getPosition().y >= m_CenterPoint.y &&
             this->getSprite().getPosition().y <= m_windowHeight - m_CenterPoint.y)
     {
+        m_turn = -1;
         this->getSprite().move(sin((this->getSprite().getRotation())*3.14/180)*-m_step, cos((this->getSprite().getRotation())*3.14/180)*m_step);
     }
 
