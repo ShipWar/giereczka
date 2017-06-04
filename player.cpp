@@ -42,7 +42,7 @@ void Player::shoot()
     {
         if(getCurrentTime() > m_shiftTime)
         {
-            m_bullet->move(m_bullet->getDirectory());
+            m_bullet->move();
             m_shiftTime = getCurrentTime() + m_ms;
         }
 

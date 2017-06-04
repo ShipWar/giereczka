@@ -16,3 +16,9 @@ sf::Vector2f Bullet::getDirectory()
     return m_bulletDirectory;
 }
 
+void Bullet::move()
+{
+    IDraw::move(getDirectory());
+}
+
+

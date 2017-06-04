@@ -9,6 +9,7 @@ public:
     Bullet(std::string p_adres);
     void setDirectory(sf::Vector2f p_directory);
     sf::Vector2f getDirectory();
+    void move() override;
 private:
     sf::Vector2f m_bulletDirectory;
 

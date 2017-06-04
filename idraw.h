@@ -12,8 +12,9 @@ public:
     bool isVisible() const;
     void setVisible(bool p_visible);
     sf::Vector2f getTextureSize() const;
-    void move(const sf::Vector2f p_vec);
-    void move(const float x, const float y);
+    virtual void move(const sf::Vector2f p_vec);
+    virtual void move(const float x, const float y);
+    virtual void move();
     void setRotation(const float p_angle);
     float getRotation() const;
     const sf::Vector2f& getPosition() const;

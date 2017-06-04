@@ -36,6 +36,11 @@ void IDraw::move(const float x, const float y)
     m_Sprite.move(x, y);
 }
 
+void IDraw::move()
+{
+    //empty
+}
+
 void IDraw::setRotation(const float p_angle)
 {
     m_Sprite.setRotation(p_angle);
