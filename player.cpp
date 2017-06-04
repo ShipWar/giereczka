@@ -44,7 +44,7 @@ void Player::shoot()
     {
         if(std::chrono::system_clock::now()>m_end)
         {
-            m_bullet->getSprite().move(m_bulletDirectory);
+            m_bullet->getSprite().move(m_bullet->getDirectory());
             m_end = std::chrono::system_clock::now() + m_ms;
         }
 
@@ -140,7 +140,7 @@ void Player::shipControl()
         {
             this->setBulletPositionBeforeShoot();
             this->getBullet()->isVisible = true;
-            m_bulletDirectory = sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3);
+            m_bullet->setDirectory(sf::Vector2f(sin((this->getSprite().getRotation())*3.14/180)*3, cos((this->getSprite().getRotation())*3.14/180)*-3));
         }
     }
 }
