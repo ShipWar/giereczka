@@ -46,21 +46,21 @@ void Player::shoot()
             m_shiftTime = getCurrentTime() + m_ms;
         }
 
-        if(m_bullet->getPosition().x < 0 ||
-           m_bullet->getPosition().x > m_windowWidth ||
-           m_bullet->getPosition().y < 0 ||
+        if(m_bullet->getPosition().x < 0 or
+           m_bullet->getPosition().x > m_windowWidth or
+           m_bullet->getPosition().y < 0 or
            m_bullet->getPosition().y > m_windowHeight)
-
-           m_bullet->setVisible(false);
+        {
+             m_bullet->setVisible(false);
+        }
     }
 }
 
 void Player::getShoot(Bullet *p_bullet)
 {
-    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y &&
-       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y &&
-       p_bullet->isVisible()  &&
-       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y &&
+    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
+       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet->isVisible()  and
+       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
        p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
     {
         if(p_bullet->isVisible())
@@ -90,10 +90,8 @@ bool Player::isAlive() const
 void Player::shipControl()
 {
 
-    if( getPosition().x < getCenterPoint().x ||
-        getPosition().x > m_windowWidth - getCenterPoint().x ||
-        getPosition().y < getCenterPoint().y ||
-        getPosition().y > m_windowHeight - getCenterPoint().y)
+    if(getPosition().x < getCenterPoint().x or getPosition().x > m_windowWidth - getCenterPoint().x or
+       getPosition().y < getCenterPoint().y or getPosition().y > m_windowHeight - getCenterPoint().y)
     {
         move(sin((getRotation())*3.14/180)*-20*m_step, cos((getRotation())*3.14/180)*20*m_step);
     }
@@ -107,20 +105,16 @@ void Player::shipControl()
         setRotation(getRotation()-m_turn);
     }
 
-    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) &&
-            getPosition().x >= getCenterPoint().x &&
-            getPosition().x <= m_windowWidth - getCenterPoint().x &&
-            getPosition().y >= getCenterPoint().y &&
-            getPosition().y <= m_windowHeight - getCenterPoint().y)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) and getPosition().x >= getCenterPoint().x and
+       getPosition().x <= m_windowWidth - getCenterPoint().x &&  getPosition().y >= getCenterPoint().y and
+       getPosition().y <= m_windowHeight - getCenterPoint().y)
     {
         m_turn = 1;
         move(sin((getRotation())*3.14/180)*m_step, cos((getRotation())*3.14/180)*-m_step);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
-            getPosition().x >= getCenterPoint().x &&
-            getPosition().x <= m_windowWidth - getCenterPoint().x &&
-            getPosition().y >= getCenterPoint().y &&
-            getPosition().y <= m_windowHeight - getCenterPoint().y)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) and getPosition().x >= getCenterPoint().x and
+       getPosition().x <= m_windowWidth - getCenterPoint().x && getPosition().y >= getCenterPoint().y and
+       getPosition().y <= m_windowHeight - getCenterPoint().y)
     {
         m_turn = -1;
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
