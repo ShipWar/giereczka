@@ -11,25 +11,24 @@ Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
                sf::Keyboard::Key> p_keyMap) :m_name(p_name),
                                              m_keyMap(p_keyMap)
 {
+    m_bullet = new Bullet("bullet.png");
 
     setVisible(true);
     setSprite(p_adres);
 
     if(m_name == "Gracz Dolny")
     {
-        m_startPosition = sf::Vector2f(m_windowWidth/2, m_windowHeight-this->getSprite().getLocalBounds().height/2);
+        move(sf::Vector2f(m_windowWidth/2, m_windowHeight-this->getSprite().getLocalBounds().height/2));
     }
     if(m_name == "Gracz Gorny")
     {
-        m_startPosition = sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2);
+        move(sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2));
         setRotation(180);
     }
 
-    m_bullet = new Bullet("bullet.png");
-    move(m_startPosition);
-    m_CenterPoint = sf::Vector2f(getTextureSize().x/2, getTextureSize().y/2);
 
-    this->getSprite().setOrigin(m_CenterPoint);
+    setCenterPoint(sf::Vector2f(getTextureSize().x/2, getTextureSize().y/2));
+
 }
 
 Bullet* Player::getBullet()
@@ -58,11 +57,11 @@ void Player::shoot()
 
 void Player::getShoot(Bullet *p_bullet)
 {
-    if(p_bullet->getSprite().getPosition().y > getPosition().y - m_CenterPoint.y &&
-       p_bullet->getSprite().getPosition().y < getPosition().y + m_CenterPoint.y &&
+    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y &&
+       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y &&
        p_bullet->isVisible()  &&
-       p_bullet->getSprite().getPosition().x > getPosition().x - m_CenterPoint.y &&
-       p_bullet->getSprite().getPosition().x < getPosition().x + m_CenterPoint.y)
+       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y &&
+       p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
     {
         if(p_bullet->isVisible())
         {
@@ -91,10 +90,10 @@ bool Player::isAlive()
 void Player::shipControl()
 {
 
-    if( getPosition().x < m_CenterPoint.x ||
-        getPosition().x > m_windowWidth - m_CenterPoint.x ||
-        getPosition().y < m_CenterPoint.y ||
-        getPosition().y > m_windowHeight - m_CenterPoint.y)
+    if( getPosition().x < getCenterPoint().x ||
+        getPosition().x > m_windowWidth - getCenterPoint().x ||
+        getPosition().y < getCenterPoint().y ||
+        getPosition().y > m_windowHeight - getCenterPoint().y)
     {
         move(sin((getRotation())*3.14/180)*-20*m_step, cos((getRotation())*3.14/180)*20*m_step);
     }
@@ -109,19 +108,19 @@ void Player::shipControl()
     }
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) &&
-            getPosition().x >= m_CenterPoint.x &&
-            getPosition().x <= m_windowWidth - m_CenterPoint.x &&
-            getPosition().y >= m_CenterPoint.y &&
-            getPosition().y <= m_windowHeight - m_CenterPoint.y)
+            getPosition().x >= getCenterPoint().x &&
+            getPosition().x <= m_windowWidth - getCenterPoint().x &&
+            getPosition().y >= getCenterPoint().y &&
+            getPosition().y <= m_windowHeight - getCenterPoint().y)
     {
         m_turn = 1;
         move(sin((getRotation())*3.14/180)*m_step, cos((getRotation())*3.14/180)*-m_step);
     }
     if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) &&
-            getPosition().x >= m_CenterPoint.x &&
-            getPosition().x <= m_windowWidth - m_CenterPoint.x &&
-            getPosition().y >= m_CenterPoint.y &&
-            getPosition().y <= m_windowHeight - m_CenterPoint.y)
+            getPosition().x >= getCenterPoint().x &&
+            getPosition().x <= m_windowWidth - getCenterPoint().x &&
+            getPosition().y >= getCenterPoint().y &&
+            getPosition().y <= m_windowHeight - getCenterPoint().y)
     {
         m_turn = -1;
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
@@ -129,7 +128,7 @@ void Player::shipControl()
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]))
     {
-        if(not this->getBullet()->isVisible())
+        if(not getBullet()->isVisible())
         {
             m_bullet->setPosition(getPosition());
             m_bullet->setVisible(true);

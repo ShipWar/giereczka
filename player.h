@@ -34,8 +34,6 @@ private:
     int m_step = 1;
     int m_turn = 1;
 
-    sf::Vector2f m_CenterPoint;
-
 };
 
 #endif // PLAYER_H

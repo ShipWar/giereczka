@@ -2,8 +2,6 @@
 
 int main()
 {
-
     GAME game;
     game.mainLoop();
-
 }

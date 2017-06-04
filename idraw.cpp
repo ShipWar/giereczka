@@ -11,7 +11,7 @@ void IDraw::setSprite(std::string p_adres)
     m_Sprite.setTexture(m_Texture);
 }
 
-bool IDraw::isVisible()
+bool IDraw::isVisible() const
 {
     return m_visible;
 }
@@ -21,7 +21,7 @@ void IDraw::setVisible(bool p_visible)
     m_visible = p_visible;
 }
 
-sf::Vector2f IDraw::getTextureSize()
+sf::Vector2f IDraw::getTextureSize() const
 {
     return static_cast<sf::Vector2f>(m_Texture.getSize());
 }
@@ -41,12 +41,12 @@ void IDraw::setRotation(const float p_angle)
     m_Sprite.setRotation(p_angle);
 }
 
-float IDraw::getRotation()
+float IDraw::getRotation() const
 {
     return m_Sprite.getRotation();
 }
 
-const sf::Vector2f& IDraw::getPosition()
+const sf::Vector2f& IDraw::getPosition() const
 {
     return m_Sprite.getPosition();
 }
@@ -54,4 +54,20 @@ const sf::Vector2f& IDraw::getPosition()
 void IDraw::setPosition(const sf::Vector2f& p_position)
 {
     m_Sprite.setPosition(p_position);
+}
+
+void IDraw::setOrigin(const sf::Vector2f& p_origin)
+{
+    m_Sprite.setOrigin(p_origin);
+}
+
+void IDraw::setCenterPoint(const sf::Vector2f p_centerPoint)
+{
+    m_centerPoint = p_centerPoint;
+    setOrigin(m_centerPoint);
+}
+
+const sf::Vector2f& IDraw::getCenterPoint() const
+{
+    return m_centerPoint;
 }
