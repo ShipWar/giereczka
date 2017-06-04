@@ -3,6 +3,6 @@
 
 Grid::Grid(std::string p_adres)
 {
-    this->isVisible=true;
+    setVisible(true);
     setSprite(p_adres);
 }

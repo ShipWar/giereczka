@@ -59,7 +59,7 @@ void GAME::display()
 
     for(IDraw* element : m_vectorOfDrawableElemnts)
     {
-        if(element->isVisible)
+        if(element->isVisible())
             m_window.draw(element->getSprite());
     }
 

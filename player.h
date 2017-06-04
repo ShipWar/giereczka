@@ -18,7 +18,6 @@ public:
     void shoot();
     void getShoot(Bullet *p_bullet);
     bool isAlive();
-    void setBulletPositionBeforeShoot();
     void shipControl();
 private:
     unsigned int m_health = 10;
