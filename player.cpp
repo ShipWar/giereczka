@@ -31,7 +31,7 @@ Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
 
 }
 
-Bullet* Player::getBullet()
+Bullet* Player::getBullet() const
 {
     return m_bullet;
 }
@@ -40,16 +40,16 @@ void Player::shoot()
 {
     if(m_bullet->isVisible())
     {
-        if(std::chrono::system_clock::now()>m_end)
+        if(getCurrentTime() > m_shiftTime)
         {
-            m_bullet->getSprite().move(m_bullet->getDirectory());
-            m_end = std::chrono::system_clock::now() + m_ms;
+            m_bullet->move(m_bullet->getDirectory());
+            m_shiftTime = getCurrentTime() + m_ms;
         }
 
-        if(m_bullet->getSprite().getPosition().x < 0 ||
-           m_bullet->getSprite().getPosition().x > m_windowWidth ||
-           m_bullet->getSprite().getPosition().y < 0 ||
-           m_bullet->getSprite().getPosition().y > m_windowHeight)
+        if(m_bullet->getPosition().x < 0 ||
+           m_bullet->getPosition().x > m_windowWidth ||
+           m_bullet->getPosition().y < 0 ||
+           m_bullet->getPosition().y > m_windowHeight)
 
            m_bullet->setVisible(false);
     }
@@ -72,7 +72,7 @@ void Player::getShoot(Bullet *p_bullet)
     }
 }
 
-bool Player::isAlive()
+bool Player::isAlive() const
 {
     static bool l_gameOver=true;
     if(not l_gameOver)
@@ -135,4 +135,9 @@ void Player::shipControl()
             m_bullet->setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));
         }
     }
+}
+
+Player::timePoint Player::getCurrentTime() const
+{
+    return std::chrono::system_clock::now();
 }
