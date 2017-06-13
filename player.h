@@ -20,9 +20,9 @@ public:
     void shipControl();
 
     bool guardTime();
-
+    void bulletOutOfRange();
 private:
-    unsigned int m_health = 10;
+    unsigned int m_health = 20;
     static const int m_windowWidth = 800;
     static const int m_windowHeight = 700;
 

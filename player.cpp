@@ -36,6 +36,8 @@ std::vector<Bullet>& Player::getBullet()
 }
 
 
+
+
 std::vector<Bullet>& Player::shoot()
 {
     std::cout<<m_bulletsVector.size()<<std::endl;
@@ -54,17 +56,10 @@ std::vector<Bullet>& Player::shoot()
 
             }
 
-            if(v.getPosition().x < 0 or
-               v.getPosition().x > m_windowWidth or
-               v.getPosition().y < 0 or
-               v.getPosition().y > m_windowHeight)
-            {
-                 v.setVisible(false);
-                 m_bulletsVector.erase(m_bulletsVector.begin()+i);
-            }
         }
 
     }
+
     return m_bulletsVector;
 }
 
@@ -153,10 +148,27 @@ bool Player::guardTime()
     static auto l_end = std::chrono::system_clock::now() - std::chrono::milliseconds(10) ;
     while (std::chrono::system_clock::now() >= l_end)
     {
-        l_end = std::chrono::system_clock::now() + std::chrono::milliseconds(500);
+        l_end = std::chrono::system_clock::now() + std::chrono::milliseconds(100);
         return true;
     }
     return false;
+}
+
+void Player::bulletOutOfRange()
+{
+    int i = 0;
+    for(Bullet& v : m_bulletsVector)
+    {
+        i++;
+        if(v.getPosition().x < 0 or
+           v.getPosition().x > m_windowWidth or
+           v.getPosition().y < 0 or
+           v.getPosition().y > m_windowHeight)
+        {
+             v.setVisible(false);
+             m_bulletsVector.erase(m_bulletsVector.begin()+i);
+        }
+    }
 }
 
 

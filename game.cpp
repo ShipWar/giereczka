@@ -48,6 +48,9 @@ void GAME::mainLoop()
 
             m_firstPlayer->getShoot(m_secondPlayer->shoot());
             m_secondPlayer->getShoot(m_firstPlayer->shoot());
+
+            m_firstPlayer->bulletOutOfRange();
+            m_secondPlayer->bulletOutOfRange();
         }
         display();
     }
