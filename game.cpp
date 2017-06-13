@@ -21,7 +21,7 @@ GAME::GAME()
     m_secondPlayer = new Player("ship2.png", "Gracz Gorny", l_mapB);
     m_grid = new Grid("space.jpg");
 
-    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()};
+    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer/*, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()*/};
 }
 
 GAME::~GAME()
@@ -45,10 +45,9 @@ void GAME::mainLoop()
         {
             m_firstPlayer->shipControl();
             m_secondPlayer->shipControl();
-            m_firstPlayer->shoot();
-            m_secondPlayer->shoot();
-            m_firstPlayer->getShoot(m_secondPlayer->getBullet());
-            m_secondPlayer->getShoot(m_firstPlayer->getBullet());
+
+            m_firstPlayer->getShoot(m_secondPlayer->shoot());
+            m_secondPlayer->getShoot(m_firstPlayer->shoot());
         }
         display();
     }
@@ -61,6 +60,18 @@ void GAME::display()
     {
         if(element->isVisible())
             m_window.draw(element->getSprite());
+    }
+
+    for(auto& element : m_firstPlayer->getBullet())
+    {
+        if(element.isVisible())
+            m_window.draw(element.getSprite());
+    }
+
+    for(auto& element : m_secondPlayer->getBullet())
+    {
+        if(element.isVisible())
+            m_window.draw(element.getSprite());
     }
 
     m_window.display();

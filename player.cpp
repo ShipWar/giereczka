@@ -1,18 +1,17 @@
 #include "player.h"
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 Player::~Player()
 {
-    delete m_bullet;
+    //delete m_bullet;
 }
 
 Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
                sf::Keyboard::Key> p_keyMap) :m_name(p_name),
                                              m_keyMap(p_keyMap)
 {
-    m_bullet = new Bullet("bullet.png");
-
     setVisible(true);
     setSprite(p_adres);
 
@@ -31,45 +30,64 @@ Player::Player(std::string p_adres, std::string p_name, std::map<std::string,
 
 }
 
-Bullet* Player::getBullet() const
+std::vector<Bullet>& Player::getBullet()
 {
-    return m_bullet;
+    return m_bulletsVector;
 }
 
-void Player::shoot()
+
+std::vector<Bullet>& Player::shoot()
 {
-    if(m_bullet->isVisible())
+    std::cout<<m_bulletsVector.size()<<std::endl;
+    int i=0;
+
+    for(Bullet& v : m_bulletsVector)
     {
-        if(getCurrentTime() > m_shiftTime)
+        std::cout<<"bullet:"<<i<<" size: "<<m_bulletsVector.size()<<std::endl;
+        i++;
+        if(v.isVisible())
         {
-            m_bullet->move();
-            m_shiftTime = getCurrentTime() + m_ms;
+            if(v.getCurrentTime() > v.m_shiftTime)
+            {
+                v.move();
+                v.m_shiftTime = v.getCurrentTime() + v.m_ms;
+
+            }
+
+            if(v.getPosition().x < 0 or
+               v.getPosition().x > m_windowWidth or
+               v.getPosition().y < 0 or
+               v.getPosition().y > m_windowHeight)
+            {
+                 v.setVisible(false);
+                 m_bulletsVector.erase(m_bulletsVector.begin()+i);
+            }
         }
 
-        if(m_bullet->getPosition().x < 0 or
-           m_bullet->getPosition().x > m_windowWidth or
-           m_bullet->getPosition().y < 0 or
-           m_bullet->getPosition().y > m_windowHeight)
-        {
-             m_bullet->setVisible(false);
-        }
     }
+    return m_bulletsVector;
 }
 
-void Player::getShoot(Bullet *p_bullet)
+void Player::getShoot(std::vector<Bullet>& p_bulletsVector)
 {
-    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
-       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet->isVisible()  and
-       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
-       p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
+    int i=0;
+    for(Bullet& p_bullet : p_bulletsVector)
     {
-        if(p_bullet->isVisible())
+    if(p_bullet.getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
+       p_bullet.getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet.isVisible()  and
+       p_bullet.getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
+       p_bullet.getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
+    {
+        if(p_bullet.isVisible())
         {
             m_health--;
             std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
-            p_bullet->setVisible(false);
+            p_bullet.setVisible(false);
+            p_bulletsVector.erase(p_bulletsVector.begin()+i);
+
         }
     }
+  }
 }
 
 bool Player::isAlive() const
@@ -120,18 +138,25 @@ void Player::shipControl()
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
     }
 
-    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]))
-    {
-        if(not getBullet()->isVisible())
-        {
-            m_bullet->setPosition(getPosition());
-            m_bullet->setVisible(true);
-            m_bullet->setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));
-        }
+    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTime())
+    {            
+        m_bullet.setPosition(getPosition());
+        m_bullet.setVisible(true);
+        m_bullet.setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));
+        m_bulletsVector.push_back(m_bullet);
+
     }
 }
 
-Player::timePoint Player::getCurrentTime() const
+bool Player::guardTime()
 {
-    return std::chrono::system_clock::now();
+    static auto l_end = std::chrono::system_clock::now() - std::chrono::milliseconds(10) ;
+    while (std::chrono::system_clock::now() >= l_end)
+    {
+        l_end = std::chrono::system_clock::now() + std::chrono::milliseconds(500);
+        return true;
+    }
+    return false;
 }
+
+

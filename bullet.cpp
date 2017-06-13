@@ -1,5 +1,15 @@
 #include "bullet.h"
 
+Bullet::Bullet()
+{
+
+}
+
+Bullet::timePoint Bullet::getCurrentTime() const
+{
+    return std::chrono::system_clock::now();
+}
+
 Bullet::Bullet(std::string p_adres)
 {
     setSprite(p_adres);

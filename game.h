@@ -25,6 +25,8 @@ private:
     std::vector<IDraw*> m_vectorOfDrawableElemnts;
 
 
+
+
 };
 
 #endif // GAME_H
