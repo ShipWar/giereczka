@@ -1,7 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include<SFML/Graphics.hpp>
 #include "idraw.h"
+#include <memory>
+
 class Grid;
 class Player;
 
@@ -15,14 +16,12 @@ public:
     void closeWindow(sf::Event &p_event);
 
 private:
-    static const int windowWidth = 800;
-    static const int windowHeight = 700;
+    constexpr static std::pair<int, int> m_windowSize = std::make_pair(800, 700);
     sf::RenderWindow m_window;
-    Grid *m_grid;
-    Player *m_firstPlayer;
-    Player *m_secondPlayer;
+    std::unique_ptr<Grid> m_grid;
+    std::unique_ptr<Player> m_firstPlayer;
+    std::unique_ptr<Player> m_secondPlayer;
 
-    std::vector<IDraw*> m_vectorOfDrawableElemnts;
 
 
 

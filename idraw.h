@@ -20,7 +20,7 @@ public:
     const sf::Vector2f& getPosition() const;
     void setPosition(const sf::Vector2f &p_position);
     void setOrigin(const sf::Vector2f &p_origin);
-    void setCenterPoint(const sf::Vector2f p_centerPoint);
+    void setCenterPoint();
     const sf::Vector2f& getCenterPoint() const;
 
 private:

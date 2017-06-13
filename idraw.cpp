@@ -66,10 +66,11 @@ void IDraw::setOrigin(const sf::Vector2f& p_origin)
     m_Sprite.setOrigin(p_origin);
 }
 
-void IDraw::setCenterPoint(const sf::Vector2f p_centerPoint)
+void IDraw::setCenterPoint()
 {
-    m_centerPoint = p_centerPoint;
-    setOrigin(m_centerPoint);
+    auto l_vec = sf::Vector2f(getTextureSize().x/2, getTextureSize().y/2);
+    m_centerPoint = l_vec;
+    setOrigin(l_vec);
 }
 
 const sf::Vector2f& IDraw::getCenterPoint() const

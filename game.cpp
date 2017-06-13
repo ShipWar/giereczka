@@ -1,10 +1,14 @@
 #include "game.h"
-#include"grid.h"
-#include"player.h"
+#include "grid.h"
+#include "player.h"
+
+
 
 GAME::GAME()
 {
-    m_window.create(sf::VideoMode(windowWidth,windowHeight, 16), "SHIPS WARSS");
+    m_window.create(sf::VideoMode(m_windowSize.first, m_windowSize.second, 16), "SHIPS WARSS");
+
+
 
    std::map<std::string, sf::Keyboard::Key> l_mapA = {{"R",sf::Keyboard::Right},
                                                       {"L",sf::Keyboard::Left},
@@ -17,18 +21,18 @@ GAME::GAME()
                                                       {"D",sf::Keyboard::S},
                                                       {"Fire",sf::Keyboard::Tab}};
 
-    m_firstPlayer = new Player("DurrrSpaceShip.png", "Gracz Dolny", l_mapA);
-    m_secondPlayer = new Player("ship2.png", "Gracz Gorny", l_mapB);
-    m_grid = new Grid("space.jpg");
+    m_firstPlayer = std::make_unique<Player>("DurrrSpaceShip.png", "Gracz Dolny", l_mapA);
+    m_secondPlayer = std::make_unique<Player>("ship2.png", "Gracz Gorny", l_mapB);
+    m_grid = std::make_unique<Grid>("space.jpg");
 
-    m_vectorOfDrawableElemnts={m_grid, m_firstPlayer, m_secondPlayer/*, m_firstPlayer->getBullet(), m_secondPlayer->getBullet()*/};
+    m_window.setFramerateLimit(60);
+    mainLoop();
+
 }
 
 GAME::~GAME()
 {
-    delete m_firstPlayer;
-    delete m_secondPlayer;
-    delete m_grid;
+
 }
 
 void GAME::mainLoop()
@@ -49,8 +53,8 @@ void GAME::mainLoop()
             m_firstPlayer->getShoot(m_secondPlayer->shoot());
             m_secondPlayer->getShoot(m_firstPlayer->shoot());
 
-            m_firstPlayer->bulletOutOfRange();
-            m_secondPlayer->bulletOutOfRange();
+            m_firstPlayer->IsBulletsOutOfRange();
+            m_secondPlayer->IsBulletsOutOfRange();
         }
         display();
     }
@@ -58,23 +62,21 @@ void GAME::mainLoop()
 
 void GAME::display()
 {
+    m_window.draw(m_grid->getSprite());
+    m_window.draw(m_secondPlayer->getSprite());
+    m_window.draw(m_firstPlayer->getSprite());
 
-    for(IDraw* element : m_vectorOfDrawableElemnts)
+
+    for(auto& bullet : m_firstPlayer->getVectorOfBullets())
     {
-        if(element->isVisible())
-            m_window.draw(element->getSprite());
+        if(bullet.isVisible())
+            m_window.draw(bullet.getSprite());
     }
 
-    for(auto& element : m_firstPlayer->getBullet())
+    for(auto& bullet : m_secondPlayer->getVectorOfBullets())
     {
-        if(element.isVisible())
-            m_window.draw(element.getSprite());
-    }
-
-    for(auto& element : m_secondPlayer->getBullet())
-    {
-        if(element.isVisible())
-            m_window.draw(element.getSprite());
+        if(bullet.isVisible())
+            m_window.draw(bullet.getSprite());
     }
 
     m_window.display();
