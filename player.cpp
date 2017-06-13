@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <algorithm>
+#include<boost/range/algorithm.hpp>
 
 Player::~Player()
 {
@@ -65,7 +66,7 @@ std::vector<Bullet>& Player::shoot()
 
 void Player::getShoot(std::vector<Bullet>& p_bulletsVector)
 {
-    int i=0;
+
     for(Bullet& p_bullet : p_bulletsVector)
     {
     if(p_bullet.getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
@@ -78,7 +79,10 @@ void Player::getShoot(std::vector<Bullet>& p_bulletsVector)
             m_health--;
             std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
             p_bullet.setVisible(false);
-            p_bulletsVector.erase(p_bulletsVector.begin()+i);
+
+            p_bulletsVector.erase(
+                    std::remove_if(p_bulletsVector.begin(), p_bulletsVector.end(),
+                                   [](Bullet p_b){return not p_b.isVisible();}), p_bulletsVector.end());
 
         }
     }
@@ -156,17 +160,21 @@ bool Player::guardTime()
 
 void Player::bulletOutOfRange()
 {
-    int i = 0;
+
     for(Bullet& v : m_bulletsVector)
     {
-        i++;
+
         if(v.getPosition().x < 0 or
            v.getPosition().x > m_windowWidth or
            v.getPosition().y < 0 or
            v.getPosition().y > m_windowHeight)
         {
              v.setVisible(false);
-             m_bulletsVector.erase(m_bulletsVector.begin()+i);
+
+             m_bulletsVector.erase(
+                     std::remove_if(m_bulletsVector.begin(), m_bulletsVector.end(),
+                                    [](Bullet p_b){return not p_b.isVisible();}), m_bulletsVector.end());
+
         }
     }
 }

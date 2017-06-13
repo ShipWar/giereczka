@@ -14,6 +14,10 @@ SOURCES += main.cpp \
 INCLUDEPATH += /usr/include/SFML
 LIBS += -L/usr/lib/x86_64-linux-gnu/ -lsfml-graphics -lsfml-window -lsfml-system
 
+
+
+
+
 HEADERS += \
     game.h \
     player.h \

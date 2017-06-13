@@ -11,7 +11,7 @@ public:
     using timePoint = std::chrono::time_point<std::chrono::system_clock>;
     using milisecound = std::chrono::milliseconds;
     using microseconds = std::chrono::microseconds;
-    milisecound m_ms = milisecound(2);
+    milisecound m_ms = milisecound(10);
     milisecound m_guardTime = milisecound(200);
     microseconds m_mics = microseconds(2);
     timePoint m_shiftTime ;
