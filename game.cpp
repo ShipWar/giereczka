@@ -6,8 +6,11 @@
 
 GAME::GAME()
 {
-    m_window.create(sf::VideoMode(m_windowSize.first, m_windowSize.second, 16), "SHIPS WARSS");
+    m_window.create(sf::VideoMode(m_windowSize.first, m_windowSize.second), "SHIPS WARSS");
 
+    sf::Vector2i l_windowPosition(150, 50);
+
+    m_window.setPosition(l_windowPosition);
 
 
    std::map<std::string, sf::Keyboard::Key> l_mapA = {{"R",sf::Keyboard::Right},
@@ -25,7 +28,8 @@ GAME::GAME()
     m_secondPlayer = std::make_unique<Player>("ship2.png", "Gracz Gorny", l_mapB);
     m_grid = std::make_unique<Grid>("space.jpg");
 
-    m_window.setFramerateLimit(60);
+    m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
+
     mainLoop();
 
 }

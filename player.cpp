@@ -27,7 +27,6 @@ Player::Player(std::string p_adres,
         setRotation(180);
     }
 
-
     setCenterPoint();
 }
 
