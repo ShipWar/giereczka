@@ -23,7 +23,7 @@ private:
 
 
 
-    Bullet m_bullet = Bullet("bullet.png");
+    Bullet m_bullet = Bullet("images/bullet.png");
     std::vector<Bullet> m_bulletsVector;
     std::string m_name;
     std::map<std::string, sf::Keyboard::Key> m_keyMap;
@@ -37,7 +37,8 @@ private:
     int m_forwardTurn = m_turn;
     int m_backwardTurn = -m_turn;
 
-    constexpr static int m_bulletSpeed = 2;
+    constexpr static int m_bulletSpeed = 4;
+    std::chrono::milliseconds m_timeStampForBullets = std::chrono::milliseconds(100);
     constexpr static int m_step = 5;
 
 

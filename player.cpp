@@ -131,7 +131,7 @@ bool Player::guardTimeForButtonMultiTap() const
     auto static l_end = std::chrono::system_clock::now();
     while (std::chrono::system_clock::now() >= l_end)
     {
-        l_end = std::chrono::system_clock::now() + std::chrono::milliseconds(100);
+        l_end = std::chrono::system_clock::now() + m_timeStampForBullets;
         return true;
     }
     return false;

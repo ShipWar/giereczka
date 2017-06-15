@@ -24,23 +24,23 @@ GAME::GAME()
                                                       {"D",sf::Keyboard::S},
                                                       {"Fire",sf::Keyboard::Tab}};
 
-    m_firstPlayer = std::make_unique<Player>("DurrrSpaceShip.png", "Gracz Dolny", l_mapA);
-    m_secondPlayer = std::make_unique<Player>("ship2.png", "Gracz Gorny", l_mapB);
-    m_grid = std::make_unique<Grid>("space.jpg");
+    m_firstPlayer = std::make_unique<Player>("images/DurrrSpaceShip.png", "Gracz Dolny", l_mapA);
+    m_secondPlayer = std::make_unique<Player>("images/ship2.png", "Gracz Gorny", l_mapB);
+    m_grid = std::make_unique<Grid>("images/space.jpg");
 
     m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
 
 
-    Mesurments l_zero("zero.png");
-    Mesurments l_one("one.png");
-    Mesurments l_two("two.png");
-    Mesurments l_three("three.png");
-    Mesurments l_four("four.png");
-    Mesurments l_five("five.png");
-    Mesurments l_six("six.png");
-    Mesurments l_seven("seven.png");
-    Mesurments l_eight("eight.png");
-    Mesurments l_nine("nine.png");
+    Mesurments l_zero("images/zero.png");
+    Mesurments l_one("images/one.png");
+    Mesurments l_two("images/two.png");
+    Mesurments l_three("images/three.png");
+    Mesurments l_four("images/four.png");
+    Mesurments l_five("images/five.png");
+    Mesurments l_six("images/six.png");
+    Mesurments l_seven("images/seven.png");
+    Mesurments l_eight("images/eight.png");
+    Mesurments l_nine("images/nine.png");
 
     m_healthPictures.push_back(l_zero);
     m_healthPictures.push_back(l_one);
