@@ -2,6 +2,7 @@
 #define GAME_H
 #include "idraw.h"
 #include <memory>
+#include "mesurments.h"
 
 class Grid;
 class Player;
@@ -21,6 +22,11 @@ private:
     std::unique_ptr<Grid> m_grid;
     std::unique_ptr<Player> m_firstPlayer;
     std::unique_ptr<Player> m_secondPlayer;
+
+    void createMeasurments();
+
+    std::vector<Mesurments> m_healthPictures;
+
 };
 
 #endif // GAME_H

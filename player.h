@@ -1,7 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include"idraw.h"
-#include"bullet.h"
+#include "bullet.h"
+
+
 
 class Player : public IDraw
 {
@@ -15,8 +16,13 @@ public:
     void shipControl();
     void AreBulletsOutOfRange();
     void keepShipOnTheGrid();
+    int getHealth();
+
 private:
     bool guardTimeForButtonMultiTap() const;
+
+
+
     Bullet m_bullet = Bullet("bullet.png");
     std::vector<Bullet> m_bulletsVector;
     std::string m_name;
@@ -26,13 +32,15 @@ private:
     constexpr static int m_windowWidth = 1000;
     constexpr static int m_windowHeight = 700;
 
-    int m_health = 20;
+    unsigned int m_health = 9;
     int m_turn = 3;
     int m_forwardTurn = m_turn;
     int m_backwardTurn = -m_turn;
 
     constexpr static int m_bulletSpeed = 2;
     constexpr static int m_step = 5;
+
+
 };
 
 #endif // PLAYER_H

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <algorithm>
+#include "idraw.h"
 
 
 Player::~Player()
@@ -14,6 +15,7 @@ Player::Player(std::string p_adres,
                std::map<std::string,sf::Keyboard::Key> p_keyMap) :m_name(p_name),
                                                                   m_keyMap(p_keyMap)
 {
+    //createHealth();
     setVisible(true);
     setSprite(p_adres);
 
@@ -28,6 +30,8 @@ Player::Player(std::string p_adres,
     }
 
     setCenterPoint();
+
+
 }
 
 std::vector<Bullet>& Player::getVectorOfBullets()
@@ -131,6 +135,11 @@ bool Player::guardTimeForButtonMultiTap() const
         return true;
     }
     return false;
+}
+
+int Player::getHealth()
+{
+   return m_health;
 }
 
 void Player::AreBulletsOutOfRange()

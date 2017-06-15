@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     player.cpp \
     grid.cpp \
     bullet.cpp \
-    idraw.cpp
+    idraw.cpp \
+    mesurments.cpp
 
 
 INCLUDEPATH += /usr/include/SFML
@@ -20,4 +21,5 @@ HEADERS += \
     player.h \
     grid.h \
     bullet.h \
-    idraw.h
+    idraw.h \
+    mesurments.h
