@@ -89,32 +89,25 @@ bool Player::isAlive() const
 
 void Player::shipControl()
 {
-
-//    if(getPosition().x < getCenterPoint().x or getPosition().x > m_windowWidth - getCenterPoint().x or
-//       getPosition().y < getCenterPoint().y or getPosition().y > m_windowHeight - getCenterPoint().y)
-//    {
-//        move(sin((getRotation())*3.14/180)*-20*m_step, cos((getRotation())*3.14/180)*20*m_step);
-//    }
+    keepShipOnTheGrid();
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["R"]))
     {
         setRotation(getRotation()+m_turn);
     }
+
     if(sf::Keyboard::isKeyPressed(m_keyMap["L"]))
     {
         setRotation(getRotation()-m_turn);
     }
 
-    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]) and getPosition().x >= getCenterPoint().x and
-       getPosition().x <= m_windowWidth - getCenterPoint().x &&  getPosition().y >= getCenterPoint().y and
-       getPosition().y <= m_windowHeight - getCenterPoint().y)
+    if(sf::Keyboard::isKeyPressed(m_keyMap["U"]))
     {
         m_turn = m_forwardTurn;
         move(sin((getRotation())*3.14/180)*m_step, cos((getRotation())*3.14/180)*-m_step);
     }
-    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]) and getPosition().x >= getCenterPoint().x and
-       getPosition().x <= m_windowWidth - getCenterPoint().x && getPosition().y >= getCenterPoint().y and
-       getPosition().y <= m_windowHeight - getCenterPoint().y)
+
+    if(sf::Keyboard::isKeyPressed(m_keyMap["D"]))
     {
         m_turn = m_backwardTurn;
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
@@ -141,7 +134,7 @@ bool Player::guardTimeForButtonMultiTap() const
     return false;
 }
 
-void Player::IsBulletsOutOfRange()
+void Player::AreBulletsOutOfRange()
 {
     for(Bullet& bullet : m_bulletsVector)
     {
@@ -159,4 +152,14 @@ void Player::IsBulletsOutOfRange()
     }
 }
 
-
+void Player::keepShipOnTheGrid()
+{
+    if(getPosition().x < 0)
+        setPosition(sf::Vector2f(getPosition().x + 10, getPosition().y));
+    if(getPosition().x > m_windowWidth)
+        setPosition(sf::Vector2f(getPosition().x - 10, getPosition().y));
+    if(getPosition().y < 0)
+        setPosition(sf::Vector2f(getPosition().x, getPosition().y + 10));
+    if(getPosition().y > m_windowHeight)
+        setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
+}

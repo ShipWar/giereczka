@@ -7,6 +7,7 @@ class Bullet : public IDraw
 {
 public:
     Bullet();
+
     using timePoint = std::chrono::time_point<std::chrono::system_clock>;
     using milisecound = std::chrono::milliseconds;
     using microseconds = std::chrono::microseconds;
@@ -21,8 +22,11 @@ public:
     void setDirectory(sf::Vector2f p_directory);
     sf::Vector2f getDirectory();
     void moveWithSpeed(int p_speed);
+
 private:
     sf::Vector2f m_bulletDirectory;
+
+
 
 };
 

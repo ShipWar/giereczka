@@ -13,8 +13,8 @@ public:
     void getShoot(std::vector<Bullet> &p_bulletsVector);
     bool isAlive() const;
     void shipControl();
-    void IsBulletsOutOfRange();
-
+    void AreBulletsOutOfRange();
+    void keepShipOnTheGrid();
 private:
     bool guardTimeForButtonMultiTap() const;
     Bullet m_bullet = Bullet("bullet.png");
