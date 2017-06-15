@@ -15,7 +15,7 @@ Player::Player(std::string p_adres,
                std::map<std::string,sf::Keyboard::Key> p_keyMap) :m_name(p_name),
                                                                   m_keyMap(p_keyMap)
 {
-    //createHealth();
+
     setVisible(true);
     setSprite(p_adres);
 
@@ -126,12 +126,11 @@ void Player::shipControl()
     }
 }
 
-bool Player::guardTimeForButtonMultiTap() const
+bool Player::guardTimeForButtonMultiTap()
 {
-    auto static l_end = std::chrono::system_clock::now();
-    while (std::chrono::system_clock::now() >= l_end)
+    while (std::chrono::system_clock::now() >= m_timePointForBullets)
     {
-        l_end = std::chrono::system_clock::now() + m_timeStampForBullets;
+        m_timePointForBullets = std::chrono::system_clock::now() + m_timeStampForBullets;
         return true;
     }
     return false;

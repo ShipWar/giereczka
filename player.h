@@ -19,9 +19,7 @@ public:
     int getHealth();
 
 private:
-    bool guardTimeForButtonMultiTap() const;
-
-
+    bool guardTimeForButtonMultiTap();
 
     Bullet m_bullet = Bullet("images/bullet.png");
     std::vector<Bullet> m_bulletsVector;
@@ -38,8 +36,9 @@ private:
     int m_backwardTurn = -m_turn;
 
     constexpr static int m_bulletSpeed = 4;
-    std::chrono::milliseconds m_timeStampForBullets = std::chrono::milliseconds(100);
-    constexpr static int m_step = 5;
+    const std::chrono::milliseconds m_timeStampForBullets = std::chrono::milliseconds(100);
+    constexpr static int m_step = 3;
+    std::chrono::system_clock::time_point m_timePointForBullets;
 
 
 };
