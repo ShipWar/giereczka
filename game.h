@@ -13,10 +13,11 @@ public:
     GAME();
     ~GAME();
     void mainLoop();
-
 private:
+
     void displayGame();
     void closeWindow(sf::Event &p_event);
+    void createMeasurments();
     void drawPlayersHealth();
     void drawPlayers();
     void drawBullets();
@@ -27,9 +28,9 @@ private:
     std::unique_ptr<Player> m_firstPlayer;
     std::unique_ptr<Player> m_secondPlayer;
 
-    void createMeasurments();
 
-    std::vector<Mesurments> m_healthPictures;
+
+    std::vector<std::unique_ptr<Mesurments>> m_healthPictures;
 
 };
 

@@ -30,28 +30,7 @@ GAME::GAME()
 
     m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
 
-
-    Mesurments l_zero("images/zero.png");
-    Mesurments l_one("images/one.png");
-    Mesurments l_two("images/two.png");
-    Mesurments l_three("images/three.png");
-    Mesurments l_four("images/four.png");
-    Mesurments l_five("images/five.png");
-    Mesurments l_six("images/six.png");
-    Mesurments l_seven("images/seven.png");
-    Mesurments l_eight("images/eight.png");
-    Mesurments l_nine("images/nine.png");
-
-    m_healthPictures.push_back(l_zero);
-    m_healthPictures.push_back(l_one);
-    m_healthPictures.push_back(l_two);
-    m_healthPictures.push_back(l_three);
-    m_healthPictures.push_back(l_four);
-    m_healthPictures.push_back(l_five);
-    m_healthPictures.push_back(l_six);
-    m_healthPictures.push_back(l_seven);
-    m_healthPictures.push_back(l_eight);
-    m_healthPictures.push_back(l_nine);
+    createMeasurments();
 }
 
 GAME::~GAME()
@@ -103,14 +82,14 @@ void GAME::closeWindow(sf::Event& p_event)
 
 void GAME::drawPlayersHealth()
 {
-    m_healthPictures.at(m_secondPlayer->getHealth()).getSprite().setPosition(sf::Vector2f(0,0));
+    m_healthPictures.at(m_secondPlayer->getHealth())->getSprite().setPosition(sf::Vector2f(0,0));
 
-    m_window.draw(m_healthPictures[m_secondPlayer->getHealth()].getSprite());
+    m_window.draw(m_healthPictures.at(m_secondPlayer->getHealth())->getSprite());
 
-    m_healthPictures.at(m_firstPlayer->getHealth()).getSprite().setPosition(
-            sf::Vector2f(0, m_windowSize.second - m_healthPictures[0].getSprite().getTexture()->getSize().y));
+    m_healthPictures.at(m_firstPlayer->getHealth())->getSprite().setPosition(
+            sf::Vector2f(0, m_windowSize.second - m_healthPictures[0]->getSprite().getTexture()->getSize().y));
 
-    m_window.draw(m_healthPictures[m_firstPlayer->getHealth()].getSprite());
+    m_window.draw(m_healthPictures.at(m_firstPlayer->getHealth())->getSprite());
 
 }
 
@@ -137,6 +116,14 @@ void GAME::drawBullets()
 
 void GAME::createMeasurments()
 {
-
-
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/zero.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/one.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/two.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/three.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/four.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/five.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/six.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/seven.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/eight.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/nine.png"));
 }
