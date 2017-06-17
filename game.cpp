@@ -1,7 +1,7 @@
 #include "game.h"
 #include "grid.h"
 #include "player.h"
-
+#include <iostream>
 
 
 GAME::GAME()
@@ -52,10 +52,6 @@ GAME::GAME()
     m_healthPictures.push_back(l_seven);
     m_healthPictures.push_back(l_eight);
     m_healthPictures.push_back(l_nine);
-
-
-    mainLoop();
-
 }
 
 GAME::~GAME()
@@ -84,36 +80,17 @@ void GAME::mainLoop()
             m_firstPlayer->AreBulletsOutOfRange();
             m_secondPlayer->AreBulletsOutOfRange();
         }
-        display();
+        displayGame();
     }
 }
 
-void GAME::display()
+void GAME::displayGame()
 {
     m_window.draw(m_grid->getSprite());
-    m_window.draw(m_secondPlayer->getSprite());
-    m_window.draw(m_firstPlayer->getSprite());
 
-    m_healthPictures[m_secondPlayer->getHealth()].getSprite().setPosition(sf::Vector2f(0,0));
-
-    m_window.draw(m_healthPictures[m_secondPlayer->getHealth()].getSprite());
-
-    m_healthPictures[m_firstPlayer->getHealth()].getSprite().setPosition(
-            sf::Vector2f(0, m_windowSize.second - m_healthPictures[0].getSprite().getTexture()->getSize().y));
-
-    m_window.draw(m_healthPictures[m_firstPlayer->getHealth()].getSprite());
-
-    for(auto& bullet : m_firstPlayer->getVectorOfBullets())
-    {
-        if(bullet.isVisible())
-            m_window.draw(bullet.getSprite());
-    }
-
-    for(auto& bullet : m_secondPlayer->getVectorOfBullets())
-    {
-        if(bullet.isVisible())
-            m_window.draw(bullet.getSprite());
-    }
+    drawPlayersHealth();
+    drawPlayers();
+    drawBullets();
 
     m_window.display();
 }
@@ -122,6 +99,40 @@ void GAME::closeWindow(sf::Event& p_event)
 {
     if (p_event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
         m_window.close();
+}
+
+void GAME::drawPlayersHealth()
+{
+    m_healthPictures.at(m_secondPlayer->getHealth()).getSprite().setPosition(sf::Vector2f(0,0));
+
+    m_window.draw(m_healthPictures[m_secondPlayer->getHealth()].getSprite());
+
+    m_healthPictures.at(m_firstPlayer->getHealth()).getSprite().setPosition(
+            sf::Vector2f(0, m_windowSize.second - m_healthPictures[0].getSprite().getTexture()->getSize().y));
+
+    m_window.draw(m_healthPictures[m_firstPlayer->getHealth()].getSprite());
+
+}
+
+void GAME::drawPlayers()
+{
+    m_window.draw(m_secondPlayer->getSprite());
+    m_window.draw(m_firstPlayer->getSprite());
+}
+
+void GAME::drawBullets()
+{
+    for(auto& bullet : m_firstPlayer->getVectorOfBullets())
+    {
+        if(bullet->isVisible())
+            m_window.draw(bullet->getSprite());
+    }
+
+    for(auto& bullet : m_secondPlayer->getVectorOfBullets())
+    {
+        if(bullet->isVisible())
+            m_window.draw(bullet->getSprite());
+    }
 }
 
 void GAME::createMeasurments()

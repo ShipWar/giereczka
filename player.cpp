@@ -1,21 +1,13 @@
 #include "player.h"
-#include <iostream>
 #include <math.h>
 #include <algorithm>
 #include "idraw.h"
-
-
-Player::~Player()
-{
-
-}
 
 Player::Player(std::string p_adres,
                std::string p_name,
                std::map<std::string,sf::Keyboard::Key> p_keyMap) :m_name(p_name),
                                                                   m_keyMap(p_keyMap)
 {
-
     setVisible(true);
     setSprite(p_adres);
 
@@ -30,55 +22,28 @@ Player::Player(std::string p_adres,
     }
 
     setCenterPoint();
-
-
 }
 
-std::vector<Bullet>& Player::getVectorOfBullets()
+std::vector<Player::BulletType> &Player::getVectorOfBullets()
 {
     return m_bulletsVector;
 }
 
-std::vector<Bullet>& Player::shoot()
+std::vector<Player::BulletType> &Player::shoot()
 {
-    for(Bullet& bullet : m_bulletsVector)
+    for(BulletType& bullet : m_bulletsVector)
     {
-        if(bullet.isVisible())
+        if(bullet->isVisible())
         {
-            if(bullet.getCurrentTime() > bullet.m_shiftTime)
+            if(bullet->getCurrentTime() > bullet->m_shiftTime)
             {
-                bullet.moveWithSpeed(m_bulletSpeed);
-                bullet.m_shiftTime = bullet.getCurrentTime() + bullet.m_ms;
+                bullet->moveWithSpeed(m_bulletSpeed);
+                bullet->m_shiftTime = bullet->getCurrentTime() + bullet->m_ms;
             }
         }
     }
 
     return m_bulletsVector;
-}
-
-void Player::getShoot(std::vector<Bullet>& p_bulletsVector)
-{
-
-    for(Bullet& p_bullet : p_bulletsVector)
-    {
-    if(p_bullet.getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
-       p_bullet.getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet.isVisible()  and
-       p_bullet.getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
-       p_bullet.getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
-    {
-        if(p_bullet.isVisible())
-        {
-            m_health--;
-            std::cout<<m_name<<" health: \n"<<m_health<<std::endl;
-            p_bullet.setVisible(false);
-
-            p_bulletsVector.erase(
-                    std::remove_if(p_bulletsVector.begin(), p_bulletsVector.end(),
-                                   [](Bullet p_b){return not p_b.isVisible();}), p_bulletsVector.end());
-
-        }
-    }
-  }
 }
 
 bool Player::isAlive() const
@@ -118,11 +83,7 @@ void Player::shipControl()
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTimeForButtonMultiTap())
     {
-        m_bullet.setPosition(getPosition());
-        m_bullet.setVisible(true);
-        m_bullet.setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));
-        m_bulletsVector.push_back(m_bullet);
-
+        m_bulletsVector.push_back(bulletFactory());
     }
 }
 
@@ -136,6 +97,22 @@ bool Player::guardTimeForButtonMultiTap()
     return false;
 }
 
+void Player::removeBullet(std::vector<Player::BulletType> &p_vec, BulletType& p_bullet)
+{
+      p_vec.erase(std::remove(p_vec.begin(), p_vec.end(), p_bullet), p_vec.end());
+}
+
+Player::BulletType Player::bulletFactory()
+{
+    static int l_counter =0;
+    l_counter++;
+    BulletType l_bullet = std::make_unique<Bullet>("images/bullet.png", l_counter);
+    l_bullet->setPosition(getPosition());
+    l_bullet->setVisible(true);
+    l_bullet->setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));
+    return l_bullet;
+}
+
 int Player::getHealth()
 {
    return m_health;
@@ -143,20 +120,33 @@ int Player::getHealth()
 
 void Player::AreBulletsOutOfRange()
 {
-    for(Bullet& bullet : m_bulletsVector)
+    for(BulletType& bullet : m_bulletsVector)
     {
-        if(bullet.getPosition().x < 0 or
-           bullet.getPosition().x > m_windowWidth or
-           bullet.getPosition().y < 0 or
-           bullet.getPosition().y > m_windowHeight)
+        if(bullet->getPosition().x < 0 or
+           bullet->getPosition().x > m_windowWidth or
+           bullet->getPosition().y < 0 or
+           bullet->getPosition().y > m_windowHeight)
         {
-             bullet.setVisible(false);
-
-             m_bulletsVector.erase(
-                            std::remove_if(m_bulletsVector.begin(), m_bulletsVector.end(),
-                                          [](Bullet p_b){return not p_b.isVisible();}), m_bulletsVector.end());
+             removeBullet(m_bulletsVector, bullet);
+             break; //one remove for one loop
         }
     }
+}
+
+void Player::getShoot(std::vector<BulletType>& p_bulletsVector)
+{
+    for(BulletType& p_bullet : p_bulletsVector)
+    {
+    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
+       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet->isVisible()  and
+       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
+       p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
+    {
+            m_health--;
+            removeBullet(p_bulletsVector, p_bullet);
+            break; //one remove for one loop
+    }
+  }
 }
 
 void Player::keepShipOnTheGrid()
@@ -169,4 +159,9 @@ void Player::keepShipOnTheGrid()
         setPosition(sf::Vector2f(getPosition().x, getPosition().y + 10));
     if(getPosition().y > m_windowHeight)
         setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
+}
+
+Player::~Player()
+{
+
 }

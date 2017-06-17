@@ -12,10 +12,14 @@ class GAME
 public:
     GAME();
     ~GAME();
-private:
     void mainLoop();
-    void display();
+
+private:
+    void displayGame();
     void closeWindow(sf::Event &p_event);
+    void drawPlayersHealth();
+    void drawPlayers();
+    void drawBullets();
 
     constexpr static std::pair<int, int> m_windowSize = std::make_pair(1000, 700);
     sf::RenderWindow m_window;
