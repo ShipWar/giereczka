@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "bullet.h"
 #include <memory>
+#include <SFML/Audio.hpp>
 
 
 class Player : public IDraw
@@ -23,7 +24,7 @@ public:
 
 private:
     unsigned int m_health = 6;
-    unsigned int m_bullets = 10;
+    unsigned int m_bullets = 20;
 
     void removeBullet(std::vector<BulletType>& p_vec, BulletType &p_bullet);
     BulletType bulletFactory();
@@ -43,6 +44,8 @@ private:
     bool guardTimeForButtonMultiTapForBullets();
     const std::chrono::milliseconds m_timeStampForBullets = std::chrono::milliseconds(350);   
     std::chrono::system_clock::time_point m_timePointForBullets;
+
+    sf::Music m_bulletSound;
 
 
 };

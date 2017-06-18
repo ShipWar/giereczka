@@ -1,5 +1,6 @@
 #include "game.h"
 #include <iostream>
+#include <SFML/Audio.hpp>
 int main()
 {
     try

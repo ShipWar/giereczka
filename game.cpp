@@ -96,16 +96,16 @@ void GAME::drawPlayersHealth()
 
 void GAME::drawPlayersBullets()
 {
-    m_bulletsPictures.at(m_secondPlayer->getBullets())->getSprite().setPosition(sf::Vector2f(0,
+    m_bulletsPictures.at(m_secondPlayer->getBullets()/2)->getSprite().setPosition(sf::Vector2f(0,
                                                 m_healthPictures[0]->getSprite().getTexture()->getSize().y));
 
-    m_window.draw(m_bulletsPictures.at(m_secondPlayer->getBullets())->getSprite());
+    m_window.draw(m_bulletsPictures.at(m_secondPlayer->getBullets()/2)->getSprite());
 
-    m_bulletsPictures.at(m_firstPlayer->getBullets())->getSprite().setPosition(
+    m_bulletsPictures.at(m_firstPlayer->getBullets()/2)->getSprite().setPosition(
             sf::Vector2f(0, m_windowSize.second - m_bulletsPictures[0]->getSprite().getTexture()->getSize().y
                 - m_healthPictures[0]->getSprite().getTexture()->getSize().y));
 
-    m_window.draw(m_bulletsPictures.at(m_firstPlayer->getBullets())->getSprite());
+    m_window.draw(m_bulletsPictures.at(m_firstPlayer->getBullets()/2)->getSprite());
 }
 
 void GAME::drawPlayers()
@@ -138,7 +138,7 @@ void GAME::createMeasurments()
     m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/4.png"));
     m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/5.png"));
     m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/6.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/7.png"));
+
 
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/0.png"));
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/1.png"));

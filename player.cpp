@@ -14,14 +14,18 @@ Player::Player(std::string p_adres,
     if(m_name == "Gracz Dolny")
     {
         move(sf::Vector2f(m_windowWidth/2, m_windowHeight - this->getSprite().getLocalBounds().height/2));
+        m_bulletSound.openFromFile("sounds/fire1.ogg");
     }
     if(m_name == "Gracz Gorny")
     {
         move(sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2));
+         m_bulletSound.openFromFile("sounds/fire2.ogg");
         setRotation(180);
     }
 
     setCenterPoint();
+
+
 }
 
 std::vector<Player::BulletType> &Player::getVectorOfBullets()
@@ -88,7 +92,9 @@ void Player::shipControl()
     {
         if(getBullets()>0)
         {
+        m_bulletSound.play();
         m_bulletsVector.push_back(bulletFactory());
+
         }
     }
 }

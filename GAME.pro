@@ -13,7 +13,7 @@ SOURCES += main.cpp \
 
 
 INCLUDEPATH += /usr/include/SFML
-LIBS += -L/usr/lib/x86_64-linux-gnu/ -lsfml-graphics -lsfml-window -lsfml-system
+LIBS += -L/usr/lib/x86_64-linux-gnu/ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
 HEADERS += \
