@@ -68,6 +68,7 @@ void GAME::displayGame()
     m_window.draw(m_grid->getSprite());
 
     drawPlayersHealth();
+    drawPlayersBullets();
     drawPlayers();
     drawBullets();
 
@@ -93,6 +94,20 @@ void GAME::drawPlayersHealth()
 
 }
 
+void GAME::drawPlayersBullets()
+{
+    m_bulletsPictures.at(m_secondPlayer->getBullets())->getSprite().setPosition(sf::Vector2f(0,
+                                                m_healthPictures[0]->getSprite().getTexture()->getSize().y));
+
+    m_window.draw(m_bulletsPictures.at(m_secondPlayer->getBullets())->getSprite());
+
+    m_bulletsPictures.at(m_firstPlayer->getBullets())->getSprite().setPosition(
+            sf::Vector2f(0, m_windowSize.second - m_bulletsPictures[0]->getSprite().getTexture()->getSize().y
+                - m_healthPictures[0]->getSprite().getTexture()->getSize().y));
+
+    m_window.draw(m_bulletsPictures.at(m_firstPlayer->getBullets())->getSprite());
+}
+
 void GAME::drawPlayers()
 {
     m_window.draw(m_secondPlayer->getSprite());
@@ -116,14 +131,35 @@ void GAME::drawBullets()
 
 void GAME::createMeasurments()
 {
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/zero.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/one.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/two.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/three.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/four.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/five.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/six.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/seven.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/eight.png"));
-    m_healthPictures.push_back(std::make_unique<Mesurments>("images/nine.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/0.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/1.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/2.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/3.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/4.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/5.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/6.png"));
+    m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/7.png"));
+
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/0.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/1.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/2.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/3.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/4.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/5.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/6.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/7.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/8.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/9.png"));
+    m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/10.png"));
+
+
 }
+
+
+
+
+
+
+
+
+

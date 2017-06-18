@@ -19,6 +19,7 @@ private:
     void closeWindow(sf::Event &p_event);
     void createMeasurments();
     void drawPlayersHealth();
+    void drawPlayersBullets();
     void drawPlayers();
     void drawBullets();
 
@@ -31,6 +32,7 @@ private:
 
 
     std::vector<std::unique_ptr<Mesurments>> m_healthPictures;
+    std::vector<std::unique_ptr<Mesurments>> m_bulletsPictures;
 
 };
 

@@ -31,6 +31,7 @@ std::vector<Player::BulletType> &Player::getVectorOfBullets()
 
 std::vector<Player::BulletType> &Player::shoot()
 {
+
     for(BulletType& bullet : m_bulletsVector)
     {
         if(bullet->isVisible())
@@ -41,9 +42,11 @@ std::vector<Player::BulletType> &Player::shoot()
                 bullet->m_shiftTime = bullet->getCurrentTime() + bullet->m_ms;
             }
         }
+
     }
 
     return m_bulletsVector;
+
 }
 
 bool Player::isAlive() const
@@ -81,13 +84,16 @@ void Player::shipControl()
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
     }
 
-    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTimeForButtonMultiTap())
+    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTimeForButtonMultiTapForBullets())
     {
+        if(getBullets()>0)
+        {
         m_bulletsVector.push_back(bulletFactory());
+        }
     }
 }
 
-bool Player::guardTimeForButtonMultiTap()
+bool Player::guardTimeForButtonMultiTapForBullets()
 {
     while (std::chrono::system_clock::now() >= m_timePointForBullets)
     {
@@ -104,6 +110,7 @@ void Player::removeBullet(std::vector<Player::BulletType> &p_vec, BulletType& p_
 
 Player::BulletType Player::bulletFactory()
 {
+    m_bullets--;
     static int l_counter =0;
     l_counter++;
     BulletType l_bullet = std::make_unique<Bullet>("images/bullet.png", l_counter);
@@ -115,7 +122,12 @@ Player::BulletType Player::bulletFactory()
 
 int Player::getHealth()
 {
-   return m_health;
+    return m_health;
+}
+
+int Player::getBullets()
+{
+    return m_bullets;
 }
 
 void Player::AreBulletsOutOfRange()
