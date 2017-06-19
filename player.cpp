@@ -2,6 +2,7 @@
 #include <math.h>
 #include <algorithm>
 #include "idraw.h"
+#include <iostream>
 
 Player::Player(std::string p_adres,
                std::string p_name,
@@ -19,7 +20,7 @@ Player::Player(std::string p_adres,
     if(m_name == "Gracz Gorny")
     {
         move(sf::Vector2f(m_windowWidth/2, this->getSprite().getLocalBounds().height/2));
-         m_bulletSound.openFromFile("sounds/fire2.ogg");
+        m_bulletSound.openFromFile("sounds/fire2.ogg");
         setRotation(180);
     }
 
@@ -65,6 +66,16 @@ bool Player::isAlive() const
 void Player::shipControl()
 {
     keepShipOnTheGrid();
+    guardTimerForSpeed_5s();
+
+    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTime())
+    {
+        if(getBullets()>0)
+        {
+            m_bulletSound.play();
+            m_bulletsVector.push_back(bulletFactory());
+        }
+    }
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["R"]))
     {
@@ -78,6 +89,7 @@ void Player::shipControl()
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["U"]))
     {
+        std::cout<<m_step<<std::endl;
         m_turn = m_forwardTurn;
         move(sin((getRotation())*3.14/180)*m_step, cos((getRotation())*3.14/180)*-m_step);
     }
@@ -87,19 +99,9 @@ void Player::shipControl()
         m_turn = m_backwardTurn;
         move(sin((getRotation())*3.14/180)*-m_step, cos((getRotation())*3.14/180)*m_step);
     }
-
-    if(sf::Keyboard::isKeyPressed(m_keyMap["Fire"]) and guardTimeForButtonMultiTapForBullets())
-    {
-        if(getBullets()>0)
-        {
-        m_bulletSound.play();
-        m_bulletsVector.push_back(bulletFactory());
-
-        }
-    }
 }
 
-bool Player::guardTimeForButtonMultiTapForBullets()
+bool Player::guardTime()
 {
     while (std::chrono::system_clock::now() >= m_timePointForBullets)
     {
@@ -136,6 +138,44 @@ int Player::getBullets()
     return m_bullets;
 }
 
+void Player::getAchivement(std::vector<std::unique_ptr<Achivement>>& p_achiveVector)
+{
+    for(std::unique_ptr<Achivement>& p_achive : p_achiveVector)
+    {
+        if(p_achive->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
+           p_achive->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_achive->isVisible()  and
+           p_achive->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
+           p_achive->getSprite().getPosition().x < getPosition().x + getCenterPoint().y and guardTime())
+        {
+            if(m_bullets + std::get<0>(p_achive->getAchivements()) <= m_bulletsMAX)
+                m_bullets += std::get<0>(p_achive->getAchivements());
+            if(m_health + std::get<1>(p_achive->getAchivements()) <= m_healthMAX)
+                m_health += std::get<1>(p_achive->getAchivements());
+            if(m_step + std::get<2>(p_achive->getAchivements()) <= m_stepMAX)
+                m_step += std::get<2>(p_achive->getAchivements());
+
+            p_achive->setVisible(false);
+            p_achive->resetTimers();
+        }
+    }
+}
+
+void Player::guardTimerForSpeed_5s()
+{
+    if(m_step > m_startStep && m_guardTimeChelper)
+    {
+        m_timePointForSpeed = std::chrono::system_clock::now() + m_timeStampForSpeed;
+        m_guardTimeChelper = false;
+    }
+
+    while (std::chrono::system_clock::now() >= m_timePointForSpeed)
+    {
+        m_timePointForSpeed = std::chrono::system_clock::now() + m_timeStampForSpeed;
+        m_step =m_startStep;
+        m_guardTimeChelper = true;
+    }
+}
+
 void Player::AreBulletsOutOfRange()
 {
     for(BulletType& bullet : m_bulletsVector)
@@ -155,15 +195,15 @@ void Player::getShoot(std::vector<BulletType>& p_bulletsVector)
 {
     for(BulletType& p_bullet : p_bulletsVector)
     {
-    if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
-       p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet->isVisible()  and
-       p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
-       p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
-    {
-            m_health--;
-            removeBullet(p_bulletsVector, p_bullet);
-            break; //one remove for one loop
-    }
+        if(p_bullet->getSprite().getPosition().y > getPosition().y - getCenterPoint().y and
+           p_bullet->getSprite().getPosition().y < getPosition().y + getCenterPoint().y and p_bullet->isVisible()  and
+           p_bullet->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
+           p_bullet->getSprite().getPosition().x < getPosition().x + getCenterPoint().y)
+        {
+                m_health--;
+                removeBullet(p_bulletsVector, p_bullet);
+                break; //one remove for one loop
+        }
   }
 }
 

@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<string>
 #ifndef IDraw_H
 #define IDraw_H

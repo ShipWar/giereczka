@@ -3,6 +3,8 @@
 #include "idraw.h"
 #include <memory>
 #include "mesurments.h"
+#include "achivement.h"
+#include <chrono>
 
 class Grid;
 class Player;
@@ -18,8 +20,13 @@ private:
     void displayGame();
     void closeWindow(sf::Event &p_event);
     void createMeasurments();
+    void createAchivements();
+
+    void randomAchivements();
+
     void drawPlayersHealth();
     void drawPlayersBullets();
+    void drawAchivements();
     void drawPlayers();
     void drawBullets();
 
@@ -29,10 +36,11 @@ private:
     std::unique_ptr<Player> m_firstPlayer;
     std::unique_ptr<Player> m_secondPlayer;
 
-
+    sf::Music m_mainSound;
 
     std::vector<std::unique_ptr<Mesurments>> m_healthPictures;
     std::vector<std::unique_ptr<Mesurments>> m_bulletsPictures;
+    std::vector<std::unique_ptr<Achivement>> m_Achivements;
 
 };
 

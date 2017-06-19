@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     grid.cpp \
     bullet.cpp \
     idraw.cpp \
-    mesurments.cpp
+    mesurments.cpp \
+    achivement.cpp
 
 
 INCLUDEPATH += /usr/include/SFML
@@ -22,4 +23,5 @@ HEADERS += \
     grid.h \
     bullet.h \
     idraw.h \
-    mesurments.h
+    mesurments.h \
+    achivement.h

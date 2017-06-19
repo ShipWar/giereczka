@@ -2,7 +2,7 @@
 #define PLAYER_H
 #include "bullet.h"
 #include <memory>
-#include <SFML/Audio.hpp>
+#include "achivement.h"
 
 
 class Player : public IDraw
@@ -21,8 +21,15 @@ public:
     void keepShipOnTheGrid();
     int getHealth();
     int getBullets();
+    void getAchivement(std::vector<std::unique_ptr<Achivement>>& p_achiveVector);
+
 
 private:
+
+    constexpr static unsigned int m_healthMAX = 6;
+    constexpr static unsigned int m_bulletsMAX = 20;
+    constexpr static int m_stepMAX = 7;
+
     unsigned int m_health = 6;
     unsigned int m_bullets = 20;
 
@@ -39,11 +46,17 @@ private:
     int m_forwardTurn = m_turn;
     int m_backwardTurn = -m_turn;
     constexpr static int m_bulletSpeed = 5;
-    constexpr static int m_step = 3;
+    int m_step = 3;
+    const static int m_startStep =3;
 
-    bool guardTimeForButtonMultiTapForBullets();
+    bool guardTime();
     const std::chrono::milliseconds m_timeStampForBullets = std::chrono::milliseconds(350);   
     std::chrono::system_clock::time_point m_timePointForBullets;
+
+    void guardTimerForSpeed_5s();
+    const std::chrono::milliseconds m_timeStampForSpeed = std::chrono::seconds(5);
+    std::chrono::system_clock::time_point m_timePointForSpeed;
+    bool m_guardTimeChelper = true;
 
     sf::Music m_bulletSound;
 

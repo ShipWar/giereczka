@@ -2,7 +2,8 @@
 #include "grid.h"
 #include "player.h"
 #include <iostream>
-
+#include <ctime>
+#include <cstdlib>
 
 GAME::GAME()
 {
@@ -31,6 +32,14 @@ GAME::GAME()
     m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
 
     createMeasurments();
+    createAchivements();
+
+    m_mainSound.openFromFile("sounds/main.ogg");
+    m_mainSound.setVolume(30);
+    m_mainSound.setLoop(true);
+    m_mainSound.play();
+
+
 }
 
 GAME::~GAME()
@@ -50,6 +59,7 @@ void GAME::mainLoop()
 
         if(m_firstPlayer->isAlive() && m_secondPlayer->isAlive())
         {
+            randomAchivements();
             m_firstPlayer->shipControl();
             m_secondPlayer->shipControl();
 
@@ -58,6 +68,9 @@ void GAME::mainLoop()
 
             m_firstPlayer->AreBulletsOutOfRange();
             m_secondPlayer->AreBulletsOutOfRange();
+
+            m_firstPlayer->getAchivement(m_Achivements);
+            m_secondPlayer->getAchivement(m_Achivements);
         }
         displayGame();
     }
@@ -69,6 +82,7 @@ void GAME::displayGame()
 
     drawPlayersHealth();
     drawPlayersBullets();
+    drawAchivements();
     drawPlayers();
     drawBullets();
 
@@ -108,6 +122,15 @@ void GAME::drawPlayersBullets()
     m_window.draw(m_bulletsPictures.at(m_firstPlayer->getBullets()/2)->getSprite());
 }
 
+void GAME::drawAchivements()
+{
+    for(auto& v : m_Achivements)
+    {
+        if(v->isVisible())
+        m_window.draw(v->getSprite());
+    }
+}
+
 void GAME::drawPlayers()
 {
     m_window.draw(m_secondPlayer->getSprite());
@@ -139,7 +162,6 @@ void GAME::createMeasurments()
     m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/5.png"));
     m_healthPictures.push_back(std::make_unique<Mesurments>("images/health/6.png"));
 
-
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/0.png"));
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/1.png"));
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/2.png"));
@@ -151,8 +173,21 @@ void GAME::createMeasurments()
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/8.png"));
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/9.png"));
     m_bulletsPictures.push_back(std::make_unique<Mesurments>("images/bullets/10.png"));
+}
 
+void GAME::createAchivements()
+{
+    m_Achivements.push_back(std::make_unique<Achivement>(2, 0, 0, "images/bonus/BulletIcon.png", 3, 6));
+    m_Achivements.push_back(std::make_unique<Achivement>(0, 2, 0, "images/bonus/shield.png", 7, 10));
+    m_Achivements.push_back(std::make_unique<Achivement>(0, 0, 2, "images/bonus/Bolt.png", 10, 14));
+}
 
+void GAME::randomAchivements()
+{
+    for(std::unique_ptr<Achivement>& achi : m_Achivements)
+    {
+        achi->randomShow();
+    }
 }
 
 
