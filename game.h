@@ -1,13 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
+
 #include "idraw.h"
-#include <memory>
-#include "mesurments.h"
-#include "achivement.h"
-#include <chrono>
+
 
 class Grid;
 class Player;
+class Achivement;
+class Mesurments;
 
 class GAME
 {    
@@ -15,15 +15,13 @@ public:
     GAME();
     ~GAME();
     void mainLoop();
-private:
 
+private:
     void displayGame();
     void closeWindow(sf::Event &p_event);
     void createMeasurments();
     void createAchivements();
-
     void randomAchivements();
-
     void drawPlayersHealth();
     void drawPlayersBullets();
     void drawAchivements();

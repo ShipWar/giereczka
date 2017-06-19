@@ -1,5 +1,4 @@
 #include "bullet.h"
-#include <iostream>
 
 Bullet::Bullet()
 {
@@ -11,16 +10,14 @@ Bullet::timePoint Bullet::getCurrentTime() const
     return std::chrono::system_clock::now();
 }
 
-Bullet::Bullet(std::string p_adres, int p_counter) : m_counter(p_counter)
+Bullet::Bullet(std::string p_adres)
 {
-    std::cout<<"Bullet Construtor "<<m_counter<<std::endl;
     setSprite(p_adres);
     setCenterPoint();
 }
 
 Bullet::~Bullet()
 {
-    std::cout<<"Bullet Destructor "<<m_counter<<std::endl;
 
 }
 

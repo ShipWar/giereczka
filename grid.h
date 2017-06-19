@@ -1,7 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
-#include"idraw.h"
 
+#include"idraw.h"
 
 class Grid : public IDraw
 {

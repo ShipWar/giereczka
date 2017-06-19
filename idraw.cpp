@@ -77,3 +77,8 @@ const sf::Vector2f& IDraw::getCenterPoint() const
 {
     return m_centerPoint;
 }
+
+void IDraw::setTexture(std::string p_adres)
+{
+    m_Texture.loadFromFile(p_adres);
+}

@@ -1,8 +1,4 @@
 #include "player.h"
-#include <math.h>
-#include <algorithm>
-#include "idraw.h"
-#include <iostream>
 
 Player::Player(std::string p_adres,
                std::string p_name,
@@ -25,18 +21,15 @@ Player::Player(std::string p_adres,
     }
 
     setCenterPoint();
-
-
 }
 
-std::vector<Player::BulletType> &Player::getVectorOfBullets()
+std::vector<Player::BulletType>& Player::getVectorOfBullets()
 {
     return m_bulletsVector;
 }
 
-std::vector<Player::BulletType> &Player::shoot()
+std::vector<Player::BulletType>& Player::shoot()
 {
-
     for(BulletType& bullet : m_bulletsVector)
     {
         if(bullet->isVisible())
@@ -47,11 +40,9 @@ std::vector<Player::BulletType> &Player::shoot()
                 bullet->m_shiftTime = bullet->getCurrentTime() + bullet->m_ms;
             }
         }
-
     }
 
     return m_bulletsVector;
-
 }
 
 bool Player::isAlive() const
@@ -89,7 +80,6 @@ void Player::shipControl()
 
     if(sf::Keyboard::isKeyPressed(m_keyMap["U"]))
     {
-        std::cout<<m_step<<std::endl;
         m_turn = m_forwardTurn;
         move(sin((getRotation())*3.14/180)*m_step, cos((getRotation())*3.14/180)*-m_step);
     }
@@ -119,9 +109,7 @@ void Player::removeBullet(std::vector<Player::BulletType> &p_vec, BulletType& p_
 Player::BulletType Player::bulletFactory()
 {
     m_bullets--;
-    static int l_counter =0;
-    l_counter++;
-    BulletType l_bullet = std::make_unique<Bullet>("images/bullet.png", l_counter);
+    BulletType l_bullet = std::make_unique<Bullet>("images/bullet.png");
     l_bullet->setPosition(getPosition());
     l_bullet->setVisible(true);
     l_bullet->setDirectory(sf::Vector2f(sin((getRotation())*3.14/180)*3, cos((getRotation())*3.14/180)*-3));

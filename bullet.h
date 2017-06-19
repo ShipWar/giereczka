@@ -1,17 +1,15 @@
 #ifndef BULLET_H
 #define BULLET_H
 #include "idraw.h"
-#include <chrono>
 
 class Bullet : public IDraw
 {
     using timePoint = std::chrono::time_point<std::chrono::system_clock>;
     using milisecound = std::chrono::milliseconds;
-    using microseconds = std::chrono::microseconds;
 
 public:
     Bullet();
-    Bullet(std::string p_adres, int p_counter = 0);
+    Bullet(std::string p_adres);
     ~Bullet();
 
     milisecound m_ms = milisecound(10);
@@ -25,7 +23,6 @@ public:
 
 private:
     sf::Vector2f m_bulletDirectory;
-    int m_counter;
 };
 
 #endif // BULLET_H

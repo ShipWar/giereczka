@@ -1,9 +1,10 @@
 #include "game.h"
 #include "grid.h"
 #include "player.h"
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
+#include "mesurments.h"
+#include "achivement.h"
+
+#include <thread>
 
 GAME::GAME()
 {
@@ -38,8 +39,6 @@ GAME::GAME()
     m_mainSound.setVolume(30);
     m_mainSound.setLoop(true);
     m_mainSound.play();
-
-
 }
 
 GAME::~GAME()
@@ -72,6 +71,17 @@ void GAME::mainLoop()
             m_firstPlayer->getAchivement(m_Achivements);
             m_secondPlayer->getAchivement(m_Achivements);
         }
+
+        if(not m_firstPlayer->isAlive())
+        {
+            m_firstPlayer->setSprite("images/DurrrSpaceShipEND.png");
+        }
+
+        if(not m_secondPlayer->isAlive())
+        {
+            m_secondPlayer->setSprite("images/ship2END.png");
+        }
+
         displayGame();
     }
 }
@@ -127,7 +137,7 @@ void GAME::drawAchivements()
     for(auto& v : m_Achivements)
     {
         if(v->isVisible())
-        m_window.draw(v->getSprite());
+            m_window.draw(v->getSprite());
     }
 }
 

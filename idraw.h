@@ -1,8 +1,9 @@
-#include<SFML/Graphics.hpp>
-#include<SFML/Audio.hpp>
-#include<string>
 #ifndef IDraw_H
 #define IDraw_H
+#include <chrono>
+#include <memory>
+#include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 
 class IDraw
 {
@@ -23,6 +24,7 @@ public:
     void setOrigin(const sf::Vector2f &p_origin);
     void setCenterPoint();
     const sf::Vector2f& getCenterPoint() const;
+    void setTexture(std::string p_adres);
 
 private:
     sf::Texture m_Texture;
