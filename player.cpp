@@ -1,4 +1,5 @@
 #include "player.h"
+#include <math.h>
 
 Player::Player(std::string p_adres,
                std::string p_name,
