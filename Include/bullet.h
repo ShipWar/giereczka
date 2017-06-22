@@ -1,6 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
-#include "idraw.h"
+
+#include "Include/idraw.h"
 
 class Bullet : public IDraw
 {

@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "bullet.h"
-#include <memory>
-#include "achivement.h"
+#include "Include/bullet.h"
+#include "Include/achivement.h"
 
+#include <memory>
 
 class Player : public IDraw
 {

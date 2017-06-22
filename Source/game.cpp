@@ -1,8 +1,8 @@
-#include "game.h"
-#include "grid.h"
-#include "player.h"
-#include "mesurments.h"
-#include "achivement.h"
+#include "Include/game.h"
+#include "Include/grid.h"
+#include "Include/player.h"
+#include "Include/mesurments.h"
+#include "Include/achivement.h"
 
 
 GAME::GAME()
@@ -76,6 +76,11 @@ void GAME::Run()
 
             m_firstPlayer->getAchivement(m_Achivements);
             m_secondPlayer->getAchivement(m_Achivements);
+        }
+
+        else
+        {
+            m_mainSound.stop();
         }
 
         displayGame();
