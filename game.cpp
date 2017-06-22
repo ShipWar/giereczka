@@ -4,11 +4,19 @@
 #include "mesurments.h"
 #include "achivement.h"
 
-#include <thread>
 
 GAME::GAME()
 {
-    m_window.create(sf::VideoMode(m_windowSize.first, m_windowSize.second), "SHIPS WARSS");
+
+}
+
+GAME::~GAME()
+{
+
+}
+
+void GAME::createGame()
+{
 
     sf::Vector2i l_windowPosition(150, 50);
 
@@ -30,10 +38,12 @@ GAME::GAME()
     m_secondPlayer = std::make_unique<Player>("images/ship2.png", "Gracz Gorny", l_mapB);
     m_grid = std::make_unique<Grid>("images/space.jpg");
 
-    m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
-
     createMeasurments();
     createAchivements();
+
+    m_window.create(sf::VideoMode(m_windowSize.first, m_windowSize.second), "SHIPS WARSS");
+
+    m_window.setFramerateLimit(60); // max Frames Per Secound set to 60FPS
 
     m_mainSound.openFromFile("sounds/main.ogg");
     m_mainSound.setVolume(30);
@@ -41,16 +51,12 @@ GAME::GAME()
     m_mainSound.play();
 }
 
-GAME::~GAME()
-{
-
-}
-
-void GAME::mainLoop()
+void GAME::Run()
 {
     while (m_window.isOpen())
     {
         sf::Event l_event;
+
         while (m_window.pollEvent(l_event))
         {
             closeWindow(l_event);
@@ -72,16 +78,6 @@ void GAME::mainLoop()
             m_secondPlayer->getAchivement(m_Achivements);
         }
 
-        if(not m_firstPlayer->isAlive())
-        {
-            m_firstPlayer->setSprite("images/DurrrSpaceShipEND.png");
-        }
-
-        if(not m_secondPlayer->isAlive())
-        {
-            m_secondPlayer->setSprite("images/ship2END.png");
-        }
-
         displayGame();
     }
 }
@@ -92,9 +88,11 @@ void GAME::displayGame()
 
     drawPlayersHealth();
     drawPlayersBullets();
-    drawAchivements();
-    drawPlayers();
-    drawBullets();
+
+    drawContainer(m_Achivements, m_window);
+    drawContainer(m_firstPlayer->getVectorOfBullets(), m_window);
+    drawContainer(m_secondPlayer->getVectorOfBullets(), m_window);
+    drawContainer({m_firstPlayer->getSprite(), m_secondPlayer->getSprite()});
 
     m_window.display();
 }
@@ -132,35 +130,6 @@ void GAME::drawPlayersBullets()
     m_window.draw(m_bulletsPictures.at(m_firstPlayer->getBullets()/2)->getSprite());
 }
 
-void GAME::drawAchivements()
-{
-    for(auto& v : m_Achivements)
-    {
-        if(v->isVisible())
-            m_window.draw(v->getSprite());
-    }
-}
-
-void GAME::drawPlayers()
-{
-    m_window.draw(m_secondPlayer->getSprite());
-    m_window.draw(m_firstPlayer->getSprite());
-}
-
-void GAME::drawBullets()
-{
-    for(auto& bullet : m_firstPlayer->getVectorOfBullets())
-    {
-        if(bullet->isVisible())
-            m_window.draw(bullet->getSprite());
-    }
-
-    for(auto& bullet : m_secondPlayer->getVectorOfBullets())
-    {
-        if(bullet->isVisible())
-            m_window.draw(bullet->getSprite());
-    }
-}
 
 void GAME::createMeasurments()
 {
@@ -200,8 +169,20 @@ void GAME::randomAchivements()
     }
 }
 
+template< typename T1, typename T2>
+void GAME::drawContainer(const T1& p_container, T2& p_window,
+                         std::function<void(const T1&, T2&)> p_func)
+{
+    p_func(p_container, p_window);
+}
 
-
+void GAME::drawContainer(std::initializer_list<sf::Sprite> p_list)
+{
+    for (auto& element : p_list)
+    {
+        m_window.draw(element);
+    }
+}
 
 
 

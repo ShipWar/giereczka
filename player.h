@@ -12,9 +12,9 @@ class Player : public IDraw
 public:
     Player(std::string p_adres, std::string p_name, std::map<std::string, sf::Keyboard::Key> p_keyMap);
     ~Player();  
-    std::vector<BulletType> &getVectorOfBullets();
-    std::vector<BulletType> &shoot();
-    void getShoot(std::vector<BulletType> &p_bulletsVector);
+    std::vector<BulletType>& getVectorOfBullets();
+    std::vector<BulletType>& shoot();
+    void getShoot(std::vector<BulletType>& p_bulletsVector);
     bool isAlive() const;
     void shipControl();
     void AreBulletsOutOfRange();
@@ -25,22 +25,24 @@ public:
 
 
 private:
+    void removeBullet(std::vector<BulletType>& p_vec, BulletType &p_bullet);
+    BulletType bulletFactory();
 
-    constexpr static unsigned int m_healthMAX = 6;
-    constexpr static unsigned int m_bulletsMAX = 20;
-    constexpr static int m_stepMAX = 7;
+    constexpr static unsigned int HEALTH_MAX = 6;
+    constexpr static unsigned int BULLETS_MAX = 20;
+    constexpr static int STEP_MAX = 7;
 
     unsigned int m_health = 6;
     unsigned int m_bullets = 20;
 
-    void removeBullet(std::vector<BulletType>& p_vec, BulletType &p_bullet);
-    BulletType bulletFactory();
+
     std::vector<BulletType> m_bulletsVector;
     std::string m_name;
     std::map<std::string, sf::Keyboard::Key> m_keyMap;
     sf::Vector2f m_startPosition;
     constexpr static int m_windowWidth = 1000;
     constexpr static int m_windowHeight = 700;
+
 
     int m_turn = 3;
     int m_forwardTurn = m_turn;

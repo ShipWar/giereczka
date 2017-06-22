@@ -5,8 +5,11 @@ int main()
 {
     try
     {
-        GAME game;
-        game.mainLoop();
+        GAME ShipsWars;
+
+        ShipsWars.createGame();
+
+        ShipsWars.Run();
     }
     catch(std::exception& e)
     {

@@ -8,7 +8,7 @@
 class IDraw
 {
 public:
-    virtual ~IDraw() = default;
+    virtual ~IDraw() {};
     sf::Sprite& getSprite();
     void setSprite(std::string p_adres);
     bool isVisible() const;

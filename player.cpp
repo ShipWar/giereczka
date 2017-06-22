@@ -101,9 +101,10 @@ bool Player::guardTime()
     return false;
 }
 
-void Player::removeBullet(std::vector<Player::BulletType> &p_vec, BulletType& p_bullet)
+void Player::removeBullet(std::vector<Player::BulletType>& p_vec, BulletType& p_bullet)
 {
-      p_vec.erase(std::remove(p_vec.begin(), p_vec.end(), p_bullet), p_vec.end());
+    auto it = std::remove(p_vec.begin(), p_vec.end(), p_bullet) ;
+    p_vec.erase(it);
 }
 
 Player::BulletType Player::bulletFactory()
@@ -135,11 +136,11 @@ void Player::getAchivement(std::vector<std::unique_ptr<Achivement>>& p_achiveVec
            p_achive->getSprite().getPosition().x > getPosition().x - getCenterPoint().y and
            p_achive->getSprite().getPosition().x < getPosition().x + getCenterPoint().y and guardTime())
         {
-            if(m_bullets + std::get<0>(p_achive->getAchivements()) <= m_bulletsMAX)
+            if(m_bullets + std::get<0>(p_achive->getAchivements()) <= BULLETS_MAX)
                 m_bullets += std::get<0>(p_achive->getAchivements());
-            if(m_health + std::get<1>(p_achive->getAchivements()) <= m_healthMAX)
+            if(m_health + std::get<1>(p_achive->getAchivements()) <= HEALTH_MAX)
                 m_health += std::get<1>(p_achive->getAchivements());
-            if(m_step + std::get<2>(p_achive->getAchivements()) <= m_stepMAX)
+            if(m_step + std::get<2>(p_achive->getAchivements()) <= STEP_MAX)
                 m_step += std::get<2>(p_achive->getAchivements());
 
             p_achive->setVisible(false);
